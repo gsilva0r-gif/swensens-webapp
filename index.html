@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swensen's — Old-Fashioned Ice Cream · San Francisco, Est. 1948</title>
+<meta name="description" content="Swensen's is San Francisco's original old-fashioned ice cream parlor. Hand-made on-site at Hyde & Union since 1948.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+
+<div class="bulk">🍨 We offer discounts on bulk orders — perfect for parties, offices &amp; events. <a href="contact.html">Get in touch!</a></div>
+<div class="stripes"></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">Swensen's<small>San Francisco · Est. 1948</small></a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="flavors.html">Flavors</a>
+      <a href="menu.html">Menu</a>
+      <a href="gifts.html">Gifts</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn btn-red nav-cta" href="https://swensensofsf.com/order-online/">Order Online</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO + SLIDESHOW ===== -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow rise d1">The Original · Hyde &amp; Union</span>
+      <h1 class="rise d2">Old-fashioned ice cream, <span class="red">made by hand</span> since 1948.</h1>
+      <span class="script tagline rise d3">Good as father used to make!</span>
+      <p class="lede rise d4">Every batch is churned on-site at our corner parlor in Russian Hill, using the same classic recipes we started with — the freshest ingredients, house-made waffle cones, and caramel drizzled by hand.</p>
+      <div class="hero-ctas rise d5">
+        <a class="btn btn-red" href="https://swensensofsf.com/order-online/">Order Online</a>
+        <a class="btn btn-cream" href="flavors.html">See Our Flavors</a>
+      </div>
+      <div class="hero-stars rise d6">
+        <span class="stars">★★★★★</span>
+        <span>Loved by generations of San Franciscans — <a href="reviews.html">read the reviews</a></span>
+      </div>
+    </div>
+
+    <div class="show-pop">
+      <div class="slideshow" id="slideshow">
+        <div class="slides">
+          <!-- Fallback slides (replaced by the Airtable "Slideshow" table when connected) -->
+          <div class="slide active">
+            <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250107_093905.jpg" alt="Swensen's ice cream">
+            <div class="cap">Scooped fresh, daily</div>
+          </div>
+          <div class="slide">
+            <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250807_161036-scaled.jpg" alt="Treats at Swensen's">
+            <div class="cap">From the case at Hyde &amp; Union</div>
+          </div>
+          <div class="slide">
+            <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg" alt="Ice cream being made">
+            <div class="cap">Made by hand, right here</div>
+          </div>
+          <div class="slide ph ph-red">
+            <span class="ph-icon">😄</span>
+            <h4>Happy Regulars</h4>
+            <p>Add a customer photo in the Airtable "Slideshow" table.</p>
+          </div>
+          <div class="slide ph ph-tan">
+            <span class="ph-icon">📷</span>
+            <h4>From the Archives, 1948</h4>
+            <p>Add a historical photo in the Airtable "Slideshow" table.</p>
+          </div>
+        </div>
+        <div class="slide-controls">
+          <button type="button" data-dir="-1" aria-label="Previous slide">◀</button>
+          <div class="dots" id="dots"></div>
+          <button type="button" data-dir="1" aria-label="Next slide">▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Hand-made on-site</span><span class="dot">●</span><span>Est. 1948</span><span class="dot">●</span><span>The original location</span><span class="dot">●</span><span>Bulk order discounts</span><span class="dot">●</span><span>SF Legacy Business</span><span class="dot">●</span><span>House-made waffle cones</span><span class="dot">●</span>
+    <span>Hand-made on-site</span><span class="dot">●</span><span>Est. 1948</span><span class="dot">●</span><span>The original location</span><span class="dot">●</span><span>Bulk order discounts</span><span class="dot">●</span><span>SF Legacy Business</span><span class="dot">●</span><span>House-made waffle cones</span><span class="dot">●</span>
+  </div>
+</div>
+
+<!-- ===== FLAVOR FAVORITES ===== -->
+<section class="band-cream">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Scooped Daily</span>
+      <h2>House favorites, churned the slow way.</h2>
+      <p>Classics, parlor originals, and a rotating seasonal — all made by hand in our own kitchen.</p>
+    </div>
+    <div class="flavor-grid reveal-stagger" id="home-favorites">
+      <!-- Fallback cards (replaced by Airtable "Flavors" table when connected) -->
+      <div class="card">
+        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#F5B584" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
+        <h3>Summer Peach Cobbler</h3>
+        <p>This season only: ripe peaches folded into sweet cream with buttery cobbler crumble.</p>
+      </div>
+      <div class="card">
+        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#4A2C1E" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
+        <h3>Sticky Chewy Chocolate</h3>
+        <p>Deep, fudgy, and famously chewy — the flavor people cross town for.</p>
+      </div>
+      <div class="card">
+        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#E8933A" stroke="#3A241A" stroke-width="4"/><circle cx="38" cy="40" r="3.5" fill="#3A241A"/><circle cx="56" cy="34" r="3.5" fill="#3A241A"/><circle cx="50" cy="50" r="3.5" fill="#3A241A"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
+        <h3>Swiss Orange Chip</h3>
+        <p>Bright orange cream studded with dark chocolate chips. A parlor original.</p>
+      </div>
+    </div>
+    <div class="center" style="margin-top:44px;">
+      <a class="btn btn-red" href="flavors.html">See All Flavors</a>
+      <a class="btn btn-cream" href="menu.html" style="margin-left:12px;">View the Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS (brown band) ===== -->
+<section class="band-brown">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">The Fan Club</span>
+      <h2>Don't take our word for it.</h2>
+      <p class="script featured-quote" id="featured-quote">"Worth the climb up the hill, every single time."</p>
+      <span class="featured-src" id="featured-src">— A happy regular · replace in Airtable with a real review</span>
+    </div>
+    <div class="review-grid reveal-stagger" id="reviews-grid">
+      <div class="review">
+        <span class="stars">★★★★★</span>
+        <p>"The sticky chewy chocolate lives up to the hype. An SF institution that still feels like 1948 inside."</p>
+        <span class="src">Sample · Google</span>
+      </div>
+      <div class="review">
+        <span class="stars">★★★★★</span>
+        <p>"We take every visitor here. Cable car ride, a cone at Swensen's, then walk down to the bay."</p>
+        <span class="src">Sample · Yelp</span>
+      </div>
+      <div class="review">
+        <span class="stars">★★★★★</span>
+        <p>"You can taste the difference when it's made by hand in the same shop. My kids love it as much as I did."</p>
+        <span class="src">Sample · Tripadvisor</span>
+      </div>
+    </div>
+    <div class="review-ctas reveal">
+      <a class="btn btn-cream" href="reviews.html">Read More Reviews</a>
+      <a class="btn btn-cream" href="https://swensensofsf.com/reviews/">Leave a Review</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<section>
+  <div class="wrap story-grid">
+    <div class="big-year reveal">1948<small>the corner of Hyde &amp; Union</small></div>
+    <div class="story reveal">
+      <span class="kicker">Our Story</span>
+      <h2>The parlor that started it all.</h2>
+      <p>Earle Swensen opened this shop in 1948, and it's still the original location of the Swensen's name — a certified San Francisco Legacy Business, scooping beside the Hyde Street cable car line for more than 75 years.</p>
+      <p>Nothing about how we make ice cream has changed: classic recipes, the best possible ingredients, and every batch churned by hand, on-site, in small quantities.</p>
+      <div class="press">
+        <strong>As featured in</strong>
+        <a href="https://www.sfchronicle.com/food/restaurants/article/swensens-ice-cream-17746804.php">San Francisco Chronicle</a>
+        <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE</a>
+        <a href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf">SF Legacy Business Registry</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GIFTS CTA ===== -->
+<section class="band-redlight">
+  <div class="wrap center">
+    <div class="sec-head reveal">
+      <span class="kicker">Gifts &amp; Merch</span>
+      <h2>Bring the parlor home.</h2>
+      <p>Gift cards for the ice-cream lover in your life, and parlor merch in every size — from little scoops to XXL.</p>
+    </div>
+    <div class="reveal">
+      <a class="btn btn-red" href="gifts.html">Shop Gifts &amp; Merch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISIT ===== -->
+<section class="band-red" id="visit">
+  <div class="wrap visit-grid">
+    <div class="reveal">
+      <span class="kicker">Come Say Hi</span>
+      <h2>One shop. One corner. Since 1948.</h2>
+      <p>Find us where the cable car climbs Russian Hill — grab a cone and walk down to the bay.</p>
+      <p>
+        <strong>Swensen's</strong><br>
+        <a href="https://goo.gl/maps/P2N2HEAVufNcdwCVA">1999 Hyde St, San Francisco, CA 94109</a><br>
+        <a href="tel:+14157756818">(415) 775-6818</a>
+      </p>
+      <div class="visit-ctas">
+        <a class="btn btn-cream" href="https://goo.gl/maps/P2N2HEAVufNcdwCVA">Get Directions</a>
+        <a class="btn btn-cream" href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="hours reveal">
+      <h3>Parlor Hours</h3>
+      <table>
+        <tr class="closed"><td>Monday</td><td>Closed</td></tr>
+        <tr><td>Tuesday</td><td>12 – 10 PM</td></tr>
+        <tr><td>Wednesday</td><td>12 – 10 PM</td></tr>
+        <tr><td>Thursday</td><td>12 – 10 PM</td></tr>
+        <tr><td>Friday</td><td>12 – 10 PM</td></tr>
+        <tr><td>Saturday</td><td>12 – 10 PM</td></tr>
+        <tr><td>Sunday</td><td>12 – 10 PM</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Swensen's</div>
+        <p>San Francisco's original old-fashioned ice cream parlor. Hand-made on-site at Hyde &amp; Union since 1948.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="flavors.html">Flavors</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="gifts.html">Gifts &amp; Merch</a></li>
+          <li><a href="https://swensensofsf.com/order-online/">Order Online</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Fans</h4>
+        <ul>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="https://swensensofsf.com/feedback/">Feedback</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/swensensofsf/">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61566343665766">Facebook</a></li>
+          <li><a href="https://www.yelp.com/biz/swensens-ice-cream-san-francisco">Yelp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Swensen's. All rights reserved.</span>
+      <span>1999 Hyde St · San Francisco, CA · (415) 775-6818</span>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
