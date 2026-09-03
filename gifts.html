@@ -11,14 +11,19 @@
 </head>
 <body data-page="gifts">
 
-<div class="bulk">🍨 We offer discounts on bulk orders — perfect for parties, offices &amp; events. <a href="contact.html">Get in touch!</a></div>
 <div class="stripes"></div>
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <a class="logo" href="index.html">Swensen's<small>San Francisco · Est. 1948</small></a>
+    <a class="logo" href="index.html" aria-label="Swensen's home">
+      <img class="site-logo-image" data-site-logo src="assets/logo-cup.png" alt="Swensen's Ice Cream and Sundaes since 1948">
+    </a>
+    <a class="legacy-mark" href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf" aria-label="Swensen's is a San Francisco Legacy Business">
+      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
+    </a>
     <div class="nav-links">
       <a href="index.html">Home</a>
+      <a class="nav-about" href="about.html">About Us</a>
       <a href="flavors.html">Flavors</a>
       <a href="menu.html">Menu</a>
       <a href="gifts.html" class="active">Gifts</a>
@@ -29,11 +34,12 @@
   </div>
 </nav>
 
-<header class="page-head">
-  <div class="wrap">
-    <h1>Gifts <span class="red">&amp; Merch</span></h1>
-    <span class="script">bring the parlor home</span>
-    <p class="note">Gift cards for the ice-cream lover in your life, and parlor merch in every size — from little scoops to XXL. Items and prices update from our Airtable.</p>
+<header class="page-head merch-hero">
+  <div class="wrap merch-hero-copy">
+    <span class="kicker">From Hyde &amp; Union</span>
+    <h1>Gifts <span>&amp; Merch</span></h1>
+    <span class="script">wear a little parlor history</span>
+    <p class="note">Gift cards, T-shirts, and hoodies from San Francisco's original Swensen's. Product details and photos stay connected to Airtable.</p>
   </div>
 </header>
 
@@ -41,33 +47,26 @@
   <div class="wrap">
     <div class="gift-grid reveal-stagger" id="gifts-grid">
       <!-- Fallback cards (replaced by the Airtable "Gifts & Merch" table when connected) -->
-      <div class="gift">
-        <div class="gift-art ga-red">🎁</div>
+      <div class="gift gift-card">
+        <div class="gift-art"><img src="assets/logo-cup.png" alt="Swensen's gift card" loading="lazy"></div>
         <h3>Gift Cards</h3>
-        <p>Any amount, redeemable in the shop. The easiest way to make someone's week.</p>
-        <span class="sizes">Digital &amp; physical</span>
+        <p>Choose any amount for the ice-cream lover in your life, redeemable at the original San Francisco parlor.</p>
+        <span class="sizes">Any amount</span>
         <a class="btn btn-red" href="https://microsite.talech.com/gift-card/SWENSENS-OF-SAN-FRANCISCO-INC-SAN-FRANCISCO-CA/gzVvOYjBaxZY3BEp">Buy a Gift Card</a>
       </div>
-      <div class="gift">
-        <div class="gift-art ga-tan">👕</div>
-        <h3>Classic Parlor Tee</h3>
-        <p>The vintage Swensen's logo on a soft cotton tee. A Russian Hill staple.</p>
-        <span class="sizes">Kids XS – Adult XXL</span>
+      <div class="gift merch-apparel">
+        <div class="gift-art"><img src="assets/swensens-real-tshirt.jpg" alt="Real Swensen's Hyde Street T-shirt" loading="lazy"></div>
+        <h3>Swensen's T-Shirt</h3>
+        <p>A soft cotton tee featuring the classic Swensen's mark—a little piece of Hyde &amp; Union.</p>
+        <span class="sizes">S – 2XL</span>
         <a class="btn btn-red" href="contact.html">Ask In Store</a>
       </div>
-      <div class="gift">
-        <div class="gift-art ga-cream">🧢</div>
-        <h3>Est. 1948 Cap</h3>
-        <p>Adjustable cap with the parlor's founding year — one size fits every fan.</p>
-        <span class="sizes">One size</span>
+      <div class="gift merch-apparel">
+        <div class="gift-art"><img src="assets/swensens-real-hoodie.jpg" alt="Real Swensen's Hyde Street hoodie" loading="lazy"></div>
+        <h3>Swensen's Hoodie</h3>
+        <p>A cozy pullover hoodie with the classic Swensen's mark for foggy San Francisco days.</p>
+        <span class="sizes">S – 2XL</span>
         <a class="btn btn-red" href="contact.html">Ask In Store</a>
-      </div>
-      <div class="gift">
-        <div class="gift-art ga-red">🍨</div>
-        <h3>Pints &amp; Party Packs</h3>
-        <p>Hand-packed to order and sold by weight — from a single pint to party-sized tubs. Bulk discounts available.</p>
-        <span class="sizes">Pint · Quart · Bulk</span>
-        <a class="btn btn-red" href="contact.html">Order Bulk</a>
       </div>
     </div>
   </div>

@@ -16,9 +16,15 @@
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <a class="logo" href="index.html">Swensen's<small>San Francisco · Est. 1948</small></a>
+    <a class="logo" href="index.html" aria-label="Swensen's home">
+      <img class="site-logo-image" data-site-logo src="assets/logo-cup.png" alt="Swensen's Ice Cream and Sundaes since 1948">
+    </a>
+    <a class="legacy-mark" href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf" aria-label="Swensen's is a San Francisco Legacy Business">
+      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
+    </a>
     <div class="nav-links">
       <a href="index.html">Home</a>
+      <a class="nav-about" href="about.html">About Us</a>
       <a href="flavors.html">Flavors</a>
       <a href="menu.html">Menu</a>
       <a href="gifts.html">Gifts</a>
@@ -56,14 +62,18 @@
     </div>
     <div class="hours reveal">
       <h3>Parlor Hours</h3>
+      <div class="hours-current" aria-live="polite">
+        <span data-current-day>Today</span>
+        <strong data-current-hours>12 – 10 PM</strong>
+      </div>
       <table>
-        <tr class="closed"><td>Monday</td><td>Closed</td></tr>
-        <tr><td>Tuesday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Wednesday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Thursday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Friday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Saturday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Sunday</td><td>12 – 10 PM</td></tr>
+        <tr class="closed" data-day="Monday"><td>Monday</td><td>Closed</td></tr>
+        <tr data-day="Tuesday"><td>Tuesday</td><td>12 – 10 PM</td></tr>
+        <tr data-day="Wednesday"><td>Wednesday</td><td>12 – 10 PM</td></tr>
+        <tr data-day="Thursday"><td>Thursday</td><td>12 – 10 PM</td></tr>
+        <tr data-day="Friday"><td>Friday</td><td>12 – 10 PM</td></tr>
+        <tr data-day="Saturday"><td>Saturday</td><td>12 – 10 PM</td></tr>
+        <tr data-day="Sunday"><td>Sunday</td><td>12 – 10 PM</td></tr>
       </table>
     </div>
   </div>

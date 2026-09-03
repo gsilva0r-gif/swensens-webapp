@@ -1,0 +1,13 @@
+{
+  "name": "swensens-website-proposal",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "sh -c 'mkdir -p dist && cp *.html *.css *.js dist/ && if [ -d assets ]; then cp -R assets dist/; fi'"
+  },
+  "devDependencies": {
+    "vite": "^7.1.3"
+  },
+  "displayName": "Swensen's Website Proposal"
+}

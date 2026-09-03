@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Swensen's — Old-Fashioned Ice Cream · San Francisco, Est. 1948</title>
+<title>Swensen's Website Proposal</title>
 <meta name="description" content="Swensen's is San Francisco's original old-fashioned ice cream parlor. Hand-made on-site at Hyde & Union since 1948.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,19 @@
 <body data-page="home">
 
 <div class="bulk">🍨 We offer discounts on bulk orders — perfect for parties, offices &amp; events. <a href="contact.html">Get in touch!</a></div>
-<div class="stripes"></div>
+<div class="bulb-trim" aria-hidden="true"></div>
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <a class="logo" href="index.html">Swensen's<small>San Francisco · Est. 1948</small></a>
+    <a class="logo" href="index.html" aria-label="Swensen's home">
+      <img class="site-logo-image" data-site-logo src="assets/logo-cup.png" alt="Swensen's Ice Cream and Sundaes since 1948">
+    </a>
+    <a class="legacy-mark" href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf" aria-label="Swensen's is a San Francisco Legacy Business">
+      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
+    </a>
     <div class="nav-links">
       <a href="index.html" class="active">Home</a>
+      <a class="nav-about" href="about.html">About Us</a>
       <a href="flavors.html">Flavors</a>
       <a href="menu.html">Menu</a>
       <a href="gifts.html">Gifts</a>
@@ -30,57 +36,48 @@
   </div>
 </nav>
 
-<!-- ===== HERO + SLIDESHOW ===== -->
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow rise d1">The Original · Hyde &amp; Union</span>
-      <h1 class="rise d2">Old-fashioned ice cream, <span class="red">made by hand</span> since 1948.</h1>
-      <span class="script tagline rise d3">Good as father used to make!</span>
-      <p class="lede rise d4">Every batch is churned on-site at our corner parlor in Russian Hill, using the same classic recipes we started with — the freshest ingredients, house-made waffle cones, and caramel drizzled by hand.</p>
-      <div class="hero-ctas rise d5">
-        <a class="btn btn-red" href="https://swensensofsf.com/order-online/">Order Online</a>
-        <a class="btn btn-cream" href="flavors.html">See Our Flavors</a>
-      </div>
-      <div class="hero-stars rise d6">
-        <span class="stars">★★★★★</span>
-        <span>Loved by generations of San Franciscans — <a href="reviews.html">read the reviews</a></span>
-      </div>
+<!-- ===== FEATURED CAMPAIGNS ===== -->
+<header class="hero hero-campaigns">
+  <div class="slideshow campaign-slideshow" id="slideshow" aria-label="Featured news and offers">
+    <div class="slides">
+      <!-- Fallback campaigns (replaced by the Airtable "Slideshow" table when connected) -->
+      <a class="slide campaign-slide campaign-theme-red active" href="menu.html" aria-label="See fall flavors: Pumpkin and black licorice">
+        <img src="assets/fall-flavors-campaign.png" alt="Pumpkin and black licorice fall ice cream cones at Swensen's">
+        <span class="campaign-wash" aria-hidden="true"></span>
+        <span class="campaign-card">
+          <span class="campaign-label">Fall at Hyde &amp; Union</span>
+          <span class="campaign-title">Pumpkin meets black licorice.</span>
+          <span class="campaign-text">Two unmistakable seasonal scoops, handmade in our San Francisco parlor for a limited time.</span>
+          <span class="campaign-cta">See Fall Flavors <span aria-hidden="true">→</span></span>
+        </span>
+      </a>
+      <a class="slide campaign-slide campaign-theme-cream" href="contact.html" aria-label="Plan your visit to Hyde and Union">
+        <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250807_161036-scaled.jpg" alt="Treats at Swensen's">
+        <span class="campaign-wash" aria-hidden="true"></span>
+        <span class="campaign-card">
+          <span class="campaign-label">Visit Hyde &amp; Union</span>
+          <span class="campaign-title">The original corner is still calling.</span>
+          <span class="campaign-text">Plan a stop at the original Swensen’s parlor in San Francisco.</span>
+          <span class="campaign-cta">Plan Your Visit <span aria-hidden="true">→</span></span>
+        </span>
+      </a>
+      <a class="slide campaign-slide campaign-theme-gold" href="about.html" aria-label="Read how Swensen's makes ice cream by hand">
+        <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg" alt="Ice cream being made">
+        <span class="campaign-wash" aria-hidden="true"></span>
+        <span class="campaign-card">
+          <span class="campaign-label">Our story</span>
+          <span class="campaign-title">Still made by hand, right here.</span>
+          <span class="campaign-text">Meet the people and classic recipes behind every batch since 1948.</span>
+          <span class="campaign-cta">How We Make It <span aria-hidden="true">→</span></span>
+        </span>
+      </a>
     </div>
-
-    <div class="show-pop">
-      <div class="slideshow" id="slideshow">
-        <div class="slides">
-          <!-- Fallback slides (replaced by the Airtable "Slideshow" table when connected) -->
-          <div class="slide active">
-            <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250107_093905.jpg" alt="Swensen's ice cream">
-            <div class="cap">Scooped fresh, daily</div>
-          </div>
-          <div class="slide">
-            <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250807_161036-scaled.jpg" alt="Treats at Swensen's">
-            <div class="cap">From the case at Hyde &amp; Union</div>
-          </div>
-          <div class="slide">
-            <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg" alt="Ice cream being made">
-            <div class="cap">Made by hand, right here</div>
-          </div>
-          <div class="slide ph ph-red">
-            <span class="ph-icon">😄</span>
-            <h4>Happy Regulars</h4>
-            <p>Add a customer photo in the Airtable "Slideshow" table.</p>
-          </div>
-          <div class="slide ph ph-tan">
-            <span class="ph-icon">📷</span>
-            <h4>From the Archives, 1948</h4>
-            <p>Add a historical photo in the Airtable "Slideshow" table.</p>
-          </div>
-        </div>
-        <div class="slide-controls">
-          <button type="button" data-dir="-1" aria-label="Previous slide">◀</button>
-          <div class="dots" id="dots"></div>
-          <button type="button" data-dir="1" aria-label="Next slide">▶</button>
-        </div>
+    <div class="slide-controls">
+      <button type="button" data-dir="-1" aria-label="Previous feature">‹</button>
+      <div class="campaign-discovery" aria-label="Choose a featured story">
+        <div class="dots" id="dots"></div>
       </div>
+      <button type="button" data-dir="1" aria-label="Next feature">›</button>
     </div>
   </div>
 </header>
@@ -94,82 +91,139 @@
 </div>
 
 <!-- ===== FLAVOR FAVORITES ===== -->
-<section class="band-cream">
-  <div class="wrap">
-    <div class="sec-head reveal">
+<section class="band-cream popular-section">
+  <a class="popular-season-note" href="menu.html">
+    <span>Now Scooping</span>
+    <strong>Fall at Hyde &amp; Union: Pumpkin + Black Licorice</strong>
+    <em>See the seasonal menu →</em>
+  </a>
+  <div class="popular-intro reveal">
+    <div class="sec-head">
       <span class="kicker">Scooped Daily</span>
       <h2>House favorites, churned the slow way.</h2>
       <p>Classics, parlor originals, and a rotating seasonal — all made by hand in our own kitchen.</p>
     </div>
-    <div class="flavor-grid reveal-stagger" id="home-favorites">
+    <div class="popular-actions">
+      <a class="btn btn-red" href="flavors.html">See All Flavors</a>
+      <a class="btn btn-cream" href="menu.html">View the Menu</a>
+    </div>
+  </div>
+  <div class="flavor-grid popular-grid reveal-stagger" id="home-favorites">
       <!-- Fallback cards (replaced by Airtable "Flavors" table when connected) -->
       <div class="card">
-        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#F5B584" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
-        <h3>Summer Peach Cobbler</h3>
-        <p>This season only: ripe peaches folded into sweet cream with buttery cobbler crumble.</p>
+        <img class="card-photo" src="https://pbs.twimg.com/media/ECqPC-XWsAMyXNh.jpg" alt="Cookies 'N Cream ice cream">
+        <h3>Cookies 'N Cream</h3>
+        <p>Pure bourbon vanilla with generous chunks of Oreo cookies throughout.</p>
       </div>
       <div class="card">
-        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#4A2C1E" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
-        <h3>Sticky Chewy Chocolate</h3>
-        <p>Deep, fudgy, and famously chewy — the flavor people cross town for.</p>
+        <img class="card-photo" src="assets/cookie-dough-flavor.png" alt="Cookie Dough ice cream">
+        <h3>Cookie Dough</h3>
+        <p>Old-fashioned vanilla packed with chocolate chips and pieces of chocolate chip cookie dough.</p>
       </div>
       <div class="card">
-        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#E8933A" stroke="#3A241A" stroke-width="4"/><circle cx="38" cy="40" r="3.5" fill="#3A241A"/><circle cx="56" cy="34" r="3.5" fill="#3A241A"/><circle cx="50" cy="50" r="3.5" fill="#3A241A"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
-        <h3>Swiss Orange Chip</h3>
-        <p>Bright orange cream studded with dark chocolate chips. A parlor original.</p>
+        <img class="card-photo" src="https://img.wongnai.com/p/400x0/2019/04/20/a00bb1e7dbef438583f4ef3e85590a73.jpg" alt="Sticky Peanut Butter ice cream">
+        <h3>Sticky Peanut Butter</h3>
+        <p>Rich chocolate ice cream ribboned with sticky peanut butter for a salty-sweet parlor favorite.</p>
       </div>
-    </div>
-    <div class="center" style="margin-top:44px;">
-      <a class="btn btn-red" href="flavors.html">See All Flavors</a>
-      <a class="btn btn-cream" href="menu.html" style="margin-left:12px;">View the Menu</a>
-    </div>
   </div>
 </section>
 
-<!-- ===== REVIEWS (brown band) ===== -->
-<section class="band-brown">
+<!-- ===== REVIEWS (Swensen's guest book) ===== -->
+<section class="home-fan-club home-review-counterwall">
   <div class="wrap">
-    <div class="reveal">
-      <span class="kicker">The Fan Club</span>
-      <h2>Don't take our word for it.</h2>
-      <p class="script featured-quote" id="featured-quote">"Worth the climb up the hill, every single time."</p>
-      <span class="featured-src" id="featured-src">— A happy regular · replace in Airtable with a real review</span>
-    </div>
-    <div class="review-grid reveal-stagger" id="reviews-grid">
-      <div class="review">
-        <span class="stars">★★★★★</span>
-        <p>"The sticky chewy chocolate lives up to the hype. An SF institution that still feels like 1948 inside."</p>
-        <span class="src">Sample · Google</span>
+    <header class="review-counterwall-heading reveal">
+      <div>
+        <span class="kicker">From the Guest Book</span>
+        <h2>The love is real.</h2>
       </div>
-      <div class="review">
-        <span class="stars">★★★★★</span>
-        <p>"We take every visitor here. Cable car ride, a cone at Swensen's, then walk down to the bay."</p>
-        <span class="src">Sample · Yelp</span>
+      <div>
+        <p>Generations of San Franciscans have made our little corner part of their story. These are the words they leave behind.</p>
+        <nav aria-label="Read Swensen's reviews on other platforms">
+          <a href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">Google ↗</a>
+          <a href="https://www.yelp.com/biz/swensens-ice-cream-san-francisco" target="_blank" rel="noopener">Yelp ↗</a>
+          <a href="https://www.tripadvisor.com/Restaurant_Review-g60713-d370452-Reviews-Swensen_s-San_Francisco_California.html" target="_blank" rel="noopener">Tripadvisor ↗</a>
+        </nav>
       </div>
-      <div class="review">
-        <span class="stars">★★★★★</span>
-        <p>"You can taste the difference when it's made by hand in the same shop. My kids love it as much as I did."</p>
-        <span class="src">Sample · Tripadvisor</span>
+    </header>
+
+    <div class="review-counterwall-stage home-review-layout reveal" id="home-review-showcase">
+      <aside class="review-counterwall-score" aria-label="Five-star guest reviews">
+        <small>Word around<br>Hyde &amp; Union</small>
+        <div>
+          <strong>5</strong>
+          <span class="review-counterwall-stars" aria-hidden="true">★★★★★</span>
+          <em>shining stars</em>
+        </div>
+        <span class="home-review-counter" id="home-review-counter">01 / 04</span>
+      </aside>
+
+      <article class="home-review-feature">
+        <div class="home-review-feature-top">
+          <span class="home-review-platform" id="featured-platform">Guest Book</span>
+          <span class="stars" id="featured-stars" aria-label="5 out of 5 stars">★★★★★</span>
+        </div>
+        <span class="home-review-quote-mark" aria-hidden="true">“</span>
+        <blockquote class="featured-quote" id="featured-quote">Worth the climb up the hill, every single time.</blockquote>
+        <footer><span class="featured-src" id="featured-src">— A happy regular</span></footer>
+        <div class="home-review-arrows" aria-label="Review controls">
+          <button type="button" data-home-review-dir="-1" aria-label="Previous review">‹</button>
+          <button type="button" data-home-review-dir="1" aria-label="Next review">›</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="home-review-rail review-counterwall-rail reveal" id="reviews-grid" aria-label="Choose a guest review">
+      <button class="home-review-note active" type="button" data-review-index="0"><b>01</b><span>In Store</span></button>
+      <button class="home-review-note" type="button" data-review-index="1"><b>02</b><span>Google</span></button>
+      <button class="home-review-note" type="button" data-review-index="2"><b>03</b><span>Yelp</span></button>
+      <button class="home-review-note" type="button" data-review-index="3"><b>04</b><span>Tripadvisor</span></button>
+    </div>
+
+    <footer class="review-counterwall-foot reveal">
+      <p><strong>Still curious?</strong> There are more sweet stories waiting at the review counter.</p>
+      <div class="review-ctas">
+        <a class="btn btn-red" href="reviews.html">Read More Reviews</a>
+        <a href="https://swensensofsf.com/reviews/">Leave a review →</a>
       </div>
-    </div>
-    <div class="review-ctas reveal">
-      <a class="btn btn-cream" href="reviews.html">Read More Reviews</a>
-      <a class="btn btn-cream" href="https://swensensofsf.com/reviews/">Leave a Review</a>
-    </div>
+    </footer>
   </div>
 </section>
 
 <!-- ===== STORY ===== -->
-<section>
-  <div class="wrap story-grid">
-    <div class="big-year reveal">1948<small>the corner of Hyde &amp; Union</small></div>
+<section class="story-section">
+  <div class="story-layout">
+    <div class="story-media reveal">
+      <figure class="story-photo story-photo-main">
+        <img src="https://s.hdnux.com/photos/01/26/50/61/22711364/16/rawImage.jpg" alt="Swensen's team members greeting customers outside the Hyde and Union parlor" loading="lazy">
+        <figcaption>The people behind the parlor · <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE</a></figcaption>
+      </figure>
+      <figure class="story-photo">
+        <img src="assets/storefront-reference.png" alt="The original Swensen's storefront at Hyde and Union" loading="lazy">
+        <figcaption>Our corner in Russian Hill</figcaption>
+      </figure>
+      <figure class="story-photo">
+        <img src="https://s.hdnux.com/photos/01/26/50/61/22711365/14/1200x0.jpg" alt="Swensen's staff serving customers inside the parlor" loading="lazy">
+        <figcaption>Serving San Francisco · <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE</a></figcaption>
+      </figure>
+      <div class="story-year" aria-label="Established 1948">
+        <strong>1948</strong>
+        <span>Hyde &amp; Union</span>
+      </div>
+    </div>
     <div class="story reveal">
       <span class="kicker">Our Story</span>
       <h2>The parlor that started it all.</h2>
-      <p>Earle Swensen opened this shop in 1948, and it's still the original location of the Swensen's name — a certified San Francisco Legacy Business, scooping beside the Hyde Street cable car line for more than 75 years.</p>
-      <p>Nothing about how we make ice cream has changed: classic recipes, the best possible ingredients, and every batch churned by hand, on-site, in small quantities.</p>
+      <p>Established in 1948, Swensen's is your local ice cream shop in San Francisco and the original location of the Swensen's franchise — home to fresh-made, old-fashioned ice cream made in-house from classic recipes and the best possible ingredients.</p>
+      <p class="story-promise"><strong>All of our ice cream is made by hand on-site, using the freshest ingredients.</strong></p>
+      <p>From chocolate, vanilla, strawberry and raspberry to Swiss orange chip, cookie dough and seasonal rotations, every scoop carries decades of recipe-making. House-made waffle cones and hand-drizzled caramel are part of the delicious details.</p>
+      <ul class="story-points">
+        <li>Hand-made on-site</li>
+        <li>House-made waffle cones</li>
+        <li>Custom orders sold by weight</li>
+        <li>Classic and seasonal flavors</li>
+      </ul>
       <div class="press">
-        <strong>As featured in</strong>
+        <strong>Articles featuring Swensen's</strong>
         <a href="https://www.sfchronicle.com/food/restaurants/article/swensens-ice-cream-17746804.php">San Francisco Chronicle</a>
         <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE</a>
         <a href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf">SF Legacy Business Registry</a>
@@ -179,48 +233,16 @@
 </section>
 
 <!-- ===== GIFTS CTA ===== -->
-<section class="band-redlight">
-  <div class="wrap center">
-    <div class="sec-head reveal">
-      <span class="kicker">Gifts &amp; Merch</span>
-      <h2>Bring the parlor home.</h2>
-      <p>Gift cards for the ice-cream lover in your life, and parlor merch in every size — from little scoops to XXL.</p>
+<section class="home-merch-section">
+  <div class="home-merch-image" role="img" aria-label="Friends wearing Swensen's merchandise outside the parlor"></div>
+  <div class="home-merch-copy reveal">
+    <span class="kicker">Gifts &amp; Merch</span>
+    <h2>Wear a little parlor history.</h2>
+    <p>Gift cards for future scoops, plus shirts and hoodies for foggy San Francisco days.</p>
+    <div class="home-merch-items" aria-label="Available merchandise">
+      <span>Gift Cards</span><span>T-Shirts · S–2XL</span><span>Hoodies · S–2XL</span>
     </div>
-    <div class="reveal">
-      <a class="btn btn-red" href="gifts.html">Shop Gifts &amp; Merch</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== VISIT ===== -->
-<section class="band-red" id="visit">
-  <div class="wrap visit-grid">
-    <div class="reveal">
-      <span class="kicker">Come Say Hi</span>
-      <h2>One shop. One corner. Since 1948.</h2>
-      <p>Find us where the cable car climbs Russian Hill — grab a cone and walk down to the bay.</p>
-      <p>
-        <strong>Swensen's</strong><br>
-        <a href="https://goo.gl/maps/P2N2HEAVufNcdwCVA">1999 Hyde St, San Francisco, CA 94109</a><br>
-        <a href="tel:+14157756818">(415) 775-6818</a>
-      </p>
-      <div class="visit-ctas">
-        <a class="btn btn-cream" href="https://goo.gl/maps/P2N2HEAVufNcdwCVA">Get Directions</a>
-        <a class="btn btn-cream" href="contact.html">Contact Us</a>
-      </div>
-    </div>
-    <div class="hours reveal">
-      <h3>Parlor Hours</h3>
-      <table>
-        <tr class="closed"><td>Monday</td><td>Closed</td></tr>
-        <tr><td>Tuesday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Wednesday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Thursday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Friday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Saturday</td><td>12 – 10 PM</td></tr>
-        <tr><td>Sunday</td><td>12 – 10 PM</td></tr>
-      </table>
-    </div>
+    <a class="btn btn-red" href="gifts.html">Explore Gifts &amp; Merch</a>
   </div>
 </section>
 
