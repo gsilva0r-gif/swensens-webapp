@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Yellowtail&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=57">
 </head>
 <body data-page="flavors">
 
@@ -20,7 +20,7 @@
       <img class="site-logo-image" data-site-logo src="assets/logo-cup.png" alt="Swensen's Ice Cream and Sundaes since 1948">
     </a>
     <a class="legacy-mark" href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf" aria-label="Swensen's is a San Francisco Legacy Business">
-      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
+      <img data-airtable-image="Global · Legacy Business Badge" src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
     </a>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -45,7 +45,7 @@
 
 <button class="flavor-edge-tab" type="button" data-filter-drawer-open aria-expanded="false" aria-controls="flavor-filter-drawer">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
-  <span>Filter</span>
+  <span class="flavor-edge-copy"><small>Find your scoop</small><strong>Filter</strong></span>
   <b data-filter-active-count hidden>0</b>
   <span class="visually-hidden" data-filter-count aria-live="polite">Showing all flavors</span>
 </button>
@@ -79,11 +79,11 @@
       <p>Two old-fashioned fall flavors, handmade here for a limited time.</p>
     </div>
     <div class="seasonal-flavor-grid reveal" id="flavors-seasonal">
-      <div class="feature-card" data-flavor-card data-nut-free="false" data-egg-free="false">
-        <div>
+      <div class="feature-card seasonal-medallion" data-flavor-card data-nut-free="false" data-egg-free="false">
+        <div class="seasonal-portrait">
           <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#D8782A" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
         </div>
-        <div>
+        <div class="seasonal-card-copy">
           <span class="season-tag">Fall 2026</span>
           <h3>Pumpkin</h3>
           <p>A smooth pumpkin seasonal made for crisp San Francisco fall days.</p>
@@ -93,11 +93,11 @@
           </details>
         </div>
       </div>
-      <div class="feature-card" data-flavor-card data-nut-free="false" data-egg-free="false">
-        <div>
+      <div class="feature-card seasonal-medallion" data-flavor-card data-nut-free="false" data-egg-free="false">
+        <div class="seasonal-portrait">
           <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#332A2F" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
         </div>
-        <div>
+        <div class="seasonal-card-copy">
           <span class="season-tag">Fall 2026</span>
           <h3>Black Licorice</h3>
           <p>A bold, old-fashioned black licorice scoop with its unmistakable bittersweet finish.</p>
@@ -119,26 +119,34 @@
       <h2>The ones people cross town for.</h2>
     </div>
     <div class="flavor-grid reveal-stagger" id="flavors-favorites">
-      <div class="card" data-flavor-card data-nut-free="true" data-egg-free="false">
-        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#4A2C1E" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
-        <h3>Sticky Chewy Chocolate</h3>
-        <p>Deep, fudgy, and famously chewy. Our signature since the beginning.</p>
-        <details class="allergen-details">
-          <summary>Allergen details</summary>
-          <div class="badges-row"><span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span></div>
-        </details>
+      <div class="card popular-card" data-flavor-card data-nut-free="true" data-egg-free="false">
+        <div class="popular-portrait">
+          <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#4A2C1E" stroke="#3A241A" stroke-width="4"/><path d="M34 58 q2 10 -4 14 M48 58 q0 12 -4 16 M62 58 q0 10 4 12" fill="none" stroke="#3A241A" stroke-width="4" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
+        </div>
+        <div class="popular-card-copy">
+          <h3>Sticky Chewy Chocolate</h3>
+          <p>Deep, fudgy, and famously chewy. Our signature since the beginning.</p>
+          <details class="allergen-details">
+            <summary>Allergen details</summary>
+            <div class="badges-row"><span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span></div>
+          </details>
+        </div>
       </div>
-      <div class="card" data-flavor-card data-nut-free="true" data-egg-free="true">
-        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#E8933A" stroke="#3A241A" stroke-width="4"/><circle cx="38" cy="40" r="3.5" fill="#3A241A"/><circle cx="56" cy="34" r="3.5" fill="#3A241A"/><circle cx="50" cy="50" r="3.5" fill="#3A241A"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
-        <h3>Swiss Orange Chip</h3>
-        <p>Bright orange cream studded with dark chocolate chips. A parlor original.</p>
-        <details class="allergen-details">
-          <summary>Allergen details</summary>
-          <div class="badges-row">
-            <span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span>
-            <span class="badge b-ef"><svg><use href="#ic-ef"/></svg>Egg-Free</span>
-          </div>
-        </details>
+      <div class="card popular-card" data-flavor-card data-nut-free="true" data-egg-free="true">
+        <div class="popular-portrait">
+          <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#E8933A" stroke="#3A241A" stroke-width="4"/><circle cx="38" cy="40" r="3.5" fill="#3A241A"/><circle cx="56" cy="34" r="3.5" fill="#3A241A"/><circle cx="50" cy="50" r="3.5" fill="#3A241A"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
+        </div>
+        <div class="popular-card-copy">
+          <h3>Swiss Orange Chip</h3>
+          <p>Bright orange cream studded with dark chocolate chips. A parlor original.</p>
+          <details class="allergen-details">
+            <summary>Allergen details</summary>
+            <div class="badges-row">
+              <span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span>
+              <span class="badge b-ef"><svg><use href="#ic-ef"/></svg>Egg-Free</span>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
   </div>
@@ -152,29 +160,66 @@
       <h2>The everyday classics.</h2>
     </div>
     <div class="flavor-grid reveal-stagger" id="flavors-regular">
-      <div class="card" data-flavor-card data-nut-free="true" data-egg-free="true">
-        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#FBF6EC" stroke="#3A241A" stroke-width="4"/><path d="M36 34 l2 2 M52 30 l2 2 M44 44 l2 2" stroke="#3A241A" stroke-width="2.5" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
-        <h3>Old-Fashioned Vanilla</h3>
-        <p>Real vanilla bean, nothing to hide behind. The scoop we're judged by.</p>
-        <details class="allergen-details">
-          <summary>Allergen details</summary>
-          <div class="badges-row">
-            <span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span>
-            <span class="badge b-ef"><svg><use href="#ic-ef"/></svg>Egg-Free</span>
-          </div>
-        </details>
+      <div class="card regular-card" data-flavor-card data-nut-free="true" data-egg-free="true">
+        <div class="regular-portrait">
+          <img class="card-photo" src="assets/flavor-old-fashioned-vanilla-v1.webp" alt="Old-Fashioned Vanilla ice cream in a waffle cone" loading="lazy" decoding="async">
+        </div>
+        <div class="regular-card-copy">
+          <h3>Old-Fashioned Vanilla</h3>
+          <p>Real vanilla bean, nothing to hide behind. The scoop we're judged by.</p>
+          <details class="allergen-details">
+            <summary>Allergen details</summary>
+            <div class="badges-row">
+              <span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span>
+              <span class="badge b-ef"><svg><use href="#ic-ef"/></svg>Egg-Free</span>
+            </div>
+          </details>
+        </div>
       </div>
-      <div class="card" data-flavor-card data-nut-free="true" data-egg-free="true">
-        <svg class="cone" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 46 a28 26 0 0 1 56 0 q2 12 -8 14 h-40 q-10 -2 -8 -14z" fill="#F0D2CD" stroke="#3A241A" stroke-width="4"/><path d="M36 36 q3 -5 6 0 M52 44 q3 -5 6 0" fill="none" stroke="#B5222B" stroke-width="3" stroke-linecap="round"/><path d="M26 62 L48 114 L70 62" fill="#C68B4E" stroke="#3A241A" stroke-width="4" stroke-linejoin="round"/><path d="M32 72 h32 M36 84 h24 M41 96 h14" stroke="#3A241A" stroke-width="3"/></svg>
-        <h3>Fresh Strawberry</h3>
-        <p>Real fruit, folded in slowly. Tastes like a Sunday at the parlor.</p>
-        <details class="allergen-details">
-          <summary>Allergen details</summary>
-          <div class="badges-row">
-            <span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span>
-            <span class="badge b-ef"><svg><use href="#ic-ef"/></svg>Egg-Free</span>
-          </div>
-        </details>
+      <div class="card regular-card" data-flavor-card data-nut-free="true" data-egg-free="true">
+        <div class="regular-portrait">
+          <img class="card-photo" src="assets/flavor-fresh-strawberry-v1.webp" alt="Fresh Strawberry ice cream in a waffle cone" loading="lazy" decoding="async">
+        </div>
+        <div class="regular-card-copy">
+          <h3>Fresh Strawberry</h3>
+          <p>Real fruit, folded in slowly. Tastes like a Sunday at the parlor.</p>
+          <details class="allergen-details">
+            <summary>Allergen details</summary>
+            <div class="badges-row">
+              <span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span>
+              <span class="badge b-ef"><svg><use href="#ic-ef"/></svg>Egg-Free</span>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="card regular-card" data-flavor-card data-nut-free="true" data-egg-free="true">
+        <div class="regular-portrait">
+          <img class="card-photo" src="assets/flavor-swiss-orange-chip-v1.webp" alt="Swiss Orange Chip ice cream in a waffle cone" loading="lazy" decoding="async">
+        </div>
+        <div class="regular-card-copy">
+          <h3>Swiss Orange Chip</h3>
+          <p>Bright orange cream studded with dark chocolate chips. A parlor original you won't find anywhere else.</p>
+          <details class="allergen-details">
+            <summary>Allergen details</summary>
+            <div class="badges-row">
+              <span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span>
+              <span class="badge b-ef"><svg><use href="#ic-ef"/></svg>Egg-Free</span>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="card regular-card" data-flavor-card data-nut-free="true" data-egg-free="false">
+        <div class="regular-portrait">
+          <img class="card-photo" src="assets/flavor-sticky-chewy-chocolate-v1.webp" alt="Sticky Chewy Chocolate ice cream in a waffle cone" loading="lazy" decoding="async">
+        </div>
+        <div class="regular-card-copy">
+          <h3>Sticky Chewy Chocolate</h3>
+          <p>Deep, fudgy, and famously chewy. Our signature since the beginning — nothing else tastes like it.</p>
+          <details class="allergen-details">
+            <summary>Allergen details</summary>
+            <div class="badges-row"><span class="badge b-nf"><svg><use href="#ic-nf"/></svg>Nut-Free</span></div>
+          </details>
+        </div>
       </div>
       <div class="card ghost">
         <span class="plus">+</span>
@@ -186,18 +231,32 @@
 </section>
 
 <!-- ===== MADE BY HAND ===== -->
-<section class="band-brown">
-  <div class="wrap split">
-    <div class="reveal">
+<section class="craft-story" aria-labelledby="craft-story-title">
+  <div class="wrap craft-story-grid">
+    <header class="craft-story-heading reveal">
       <span class="kicker">Behind The Counter</span>
-      <h2>Watch it being made.</h2>
-      <p>Every flavor on this page starts in the same place: our own kitchen at Hyde &amp; Union. We churn in small batches, roll our own waffle cones, and drizzle every sauce by hand — the same way it's been done here since 1948.</p>
-      <p>Stop by on a weekday morning and you might catch a fresh batch going into the case.</p>
-      <a class="btn btn-cream" href="contact.html">Plan Your Visit</a>
-    </div>
-    <div class="photo-frame reveal">
-      <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg" alt="Ice cream being made at Swensen's">
-      <div class="cap">📷 pics from airtable</div>
+      <h2 id="craft-story-title">Watch it<br><em>being made.</em></h2>
+      <p>Same corner. Same hands-on care. Every batch starts right here at Hyde &amp; Union.</p>
+    </header>
+
+    <figure class="craft-story-media reveal">
+      <div class="craft-story-photo">
+        <img data-airtable-image="Flavors · Craft Photo" src="https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg" alt="The Swensen's team outside the Hyde Street parlor">
+      </div>
+      <figcaption><span>Made at the parlor</span><strong>1999 Hyde Street · San Francisco</strong></figcaption>
+    </figure>
+
+    <div class="craft-story-copy reveal">
+      <p class="craft-story-lede">Every flavor on this page begins in our own kitchen. We churn in small batches, roll our waffle cones, and finish every sauce by hand—the way Swensen's has done it since 1948.</p>
+      <ol class="craft-story-steps" aria-label="How Swensen's makes every batch">
+        <li><span>01</span><strong>Small-batch<br>churning</strong></li>
+        <li><span>02</span><strong>Hand-rolled<br>waffle cones</strong></li>
+        <li><span>03</span><strong>Sauces finished<br>by hand</strong></li>
+      </ol>
+      <div class="craft-story-visit">
+        <p>Stop by on a weekday morning and you might catch a fresh batch going into the case.</p>
+        <a class="btn btn-cream" href="contact.html">Plan Your Visit</a>
+      </div>
     </div>
   </div>
 </section>
@@ -242,6 +301,6 @@
   </div>
 </footer>
 
-<script src="site.js"></script>
+<script src="site.js?v=57"></script>
 </body>
 </html>

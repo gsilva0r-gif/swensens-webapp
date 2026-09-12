@@ -8,12 +8,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Yellowtail&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="preload" as="image" href="assets/swensens-logo-animation-fast-v1.png">
+<link rel="stylesheet" href="styles.css?v=57">
+<link rel="stylesheet" href="homepage.css?v=54">
+<script src="homepage.js?v=53" defer></script>
 </head>
 <body data-page="home">
 
 <div class="bulk">🍨 We offer discounts on bulk orders — perfect for parties, offices &amp; events. <a href="contact.html">Get in touch!</a></div>
-<div class="bulb-trim" aria-hidden="true"></div>
+<div class="bulb-trim" data-airtable-bg="Global · Storefront Bulb Strip" aria-hidden="true"></div>
 
 <nav class="site-nav">
   <div class="nav-inner">
@@ -21,7 +24,7 @@
       <img class="site-logo-image" data-site-logo src="assets/logo-cup.png" alt="Swensen's Ice Cream and Sundaes since 1948">
     </a>
     <a class="legacy-mark" href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf" aria-label="Swensen's is a San Francisco Legacy Business">
-      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
+      <img data-airtable-image="Global · Legacy Business Badge" src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
     </a>
     <div class="nav-links">
       <a href="index.html" class="active">Home</a>
@@ -36,51 +39,78 @@
   </div>
 </nav>
 
-<!-- ===== FEATURED CAMPAIGNS ===== -->
-<header class="hero hero-campaigns">
-  <div class="slideshow campaign-slideshow" id="slideshow" aria-label="Featured news and offers">
-    <div class="slides">
-      <!-- Fallback campaigns (replaced by the Airtable "Slideshow" table when connected) -->
-      <a class="slide campaign-slide campaign-theme-red active" href="menu.html" aria-label="See fall flavors: Pumpkin and black licorice">
-        <img src="assets/fall-flavors-campaign.png" alt="Pumpkin and black licorice fall ice cream cones at Swensen's">
-        <span class="campaign-wash" aria-hidden="true"></span>
-        <span class="campaign-card">
-          <span class="campaign-label">Fall at Hyde &amp; Union</span>
-          <span class="campaign-title">Pumpkin meets black licorice.</span>
-          <span class="campaign-text">Two unmistakable seasonal scoops, handmade in our San Francisco parlor for a limited time.</span>
-          <span class="campaign-cta">See Fall Flavors <span aria-hidden="true">→</span></span>
-        </span>
-      </a>
-      <a class="slide campaign-slide campaign-theme-cream" href="contact.html" aria-label="Plan your visit to Hyde and Union">
-        <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250807_161036-scaled.jpg" alt="Treats at Swensen's">
-        <span class="campaign-wash" aria-hidden="true"></span>
-        <span class="campaign-card">
-          <span class="campaign-label">Visit Hyde &amp; Union</span>
-          <span class="campaign-title">The original corner is still calling.</span>
-          <span class="campaign-text">Plan a stop at the original Swensen’s parlor in San Francisco.</span>
-          <span class="campaign-cta">Plan Your Visit <span aria-hidden="true">→</span></span>
-        </span>
-      </a>
-      <a class="slide campaign-slide campaign-theme-gold" href="about.html" aria-label="Read how Swensen's makes ice cream by hand">
-        <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg" alt="Ice cream being made">
-        <span class="campaign-wash" aria-hidden="true"></span>
-        <span class="campaign-card">
-          <span class="campaign-label">Our story</span>
-          <span class="campaign-title">Still made by hand, right here.</span>
-          <span class="campaign-text">Meet the people and classic recipes behind every batch since 1948.</span>
-          <span class="campaign-cta">How We Make It <span aria-hidden="true">→</span></span>
-        </span>
-      </a>
-    </div>
-    <div class="slide-controls">
-      <button type="button" data-dir="-1" aria-label="Previous feature">‹</button>
-      <div class="campaign-discovery" aria-label="Choose a featured story">
-        <div class="dots" id="dots"></div>
-      </div>
-      <button type="button" data-dir="1" aria-label="Next feature">›</button>
+<!-- ===== THE ORIGINAL — OUR STOREFRONT SIGN ===== -->
+<div class="home-opening">
+  <div class="brand-backdrop" aria-hidden="true">
+    <div class="brand-backdrop-view">
+      <img data-airtable-image="Home · Opening Storefront" src="assets/storefront-evening-original.png" alt="" fetchpriority="high" decoding="async">
     </div>
   </div>
+<header class="brand-intro" aria-labelledby="brand-title">
+  <div class="brand-scene">
+    <div class="brand-meta"><span>The original corner</span><span>Hyde &amp; Union · San Francisco</span></div>
+    <div class="brand-sign">
+      <h1 id="brand-title">
+        <span class="visually-hidden">The Original Swensen’s</span>
+        <img
+          class="brand-logo-animation"
+          src="assets/swensens-logo-final-transparent.png"
+          data-animation-src="assets/swensens-logo-animation-fast-v1.png"
+          data-static-src="assets/swensens-logo-final-transparent.png"
+          width="1200"
+          height="650"
+          alt=""
+          aria-hidden="true"
+          decoding="async">
+        <noscript><img class="brand-logo-static" src="assets/swensens-logo-final-transparent.png" width="1200" height="650" alt="" aria-hidden="true"></noscript>
+      </h1>
+      <p class="brand-since"><span>Handmade ice cream</span><span aria-hidden="true">✦</span><span>Since 1948</span></p>
+      <p class="brand-promise">Good as father used to make!</p>
+    </div>
+    <a class="brand-scroll" href="#promotions"><span>See what’s scooping</span><span aria-hidden="true">↓</span></a>
+  </div>
 </header>
+
+<!-- ===== LARGE, CLICKABLE PROMOTIONS ===== -->
+<section class="home-promotions" id="promotions" aria-labelledby="promotions-title">
+  <div class="promotion-heading">
+    <h2 id="promotions-title">A little something to look forward to.</h2>
+    <p>Seasonal scoops. Parlor news. Good things ahead.</p>
+  </div>
+  <div class="slideshow promotion-slideshow" id="slideshow" role="region" aria-roledescription="carousel" aria-label="Featured news and offers">
+   <div class="promotion-stage">
+    <div class="slides">
+      <!-- Fallback campaigns (replaced by the Airtable "Slideshow" table when connected) -->
+      <a class="slide promotion-slide active" href="menu.html" aria-label="See fall flavors: Pumpkin and Black Licorice" data-title="A taste of autumn." data-label="Pumpkin + Black Licorice" data-action="See Fall Flavors">
+        <picture>
+          <source media="(max-width: 700px)" srcset="assets/swensens-autumn-portrait.png">
+          <img src="assets/swensens-autumn-landscape.png" width="1672" height="941" alt="Swensen’s — A taste of autumn. Pumpkin + Black Licorice. Handmade at Hyde &amp; Union. Pumpkin and black licorice scoops in cups and a waffle cone." decoding="async">
+        </picture>
+      </a>
+      <a class="slide promotion-slide" href="contact.html" aria-label="Plan your visit to Hyde and Union" data-title="The original corner is still calling." data-label="Visit Hyde &amp; Union" data-action="Plan Your Visit" tabindex="-1" aria-hidden="true" inert>
+        <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250807_161036-scaled.jpg" alt="Treats at Swensen's" loading="lazy" decoding="async">
+      </a>
+      <a class="slide promotion-slide" href="about.html" aria-label="Read how Swensen's makes ice cream by hand" data-title="Still made by hand, right here." data-label="Our story" data-action="How We Make It" tabindex="-1" aria-hidden="true" inert>
+        <img src="https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg" alt="Ice cream being made by hand" loading="lazy" decoding="async">
+      </a>
+    </div>
+    <div class="promotion-controls">
+      <button class="promotion-arrow promotion-prev" type="button" data-dir="-1" aria-label="Previous promotion"><svg viewBox="0 0 24 40" aria-hidden="true"><path d="M20 3 4 20l16 17"/></svg></button>
+      <div class="dots" id="dots" aria-label="Choose a promotion"></div>
+      <button class="promotion-arrow promotion-next" type="button" data-dir="1" aria-label="Next promotion"><svg viewBox="0 0 24 40" aria-hidden="true"><path d="m4 3 16 17L4 37"/></svg></button>
+    </div>
+   </div>
+    <div class="promotion-caption">
+      <div class="promotion-caption-copy">
+        <span class="promotion-label" data-promotion-label>Pumpkin + Black Licorice</span>
+        <p data-promotion-title>A taste of autumn.</p>
+      </div>
+      <a class="promotion-link" data-promotion-link href="menu.html"><span data-promotion-action>See Fall Flavors</span><span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="visually-hidden" data-promotion-status aria-live="polite" aria-atomic="true"></p>
+  </div>
+</section>
+</div>
 
 <!-- ===== TICKER ===== -->
 <div class="ticker" aria-hidden="true">
@@ -110,80 +140,87 @@
   </div>
   <div class="flavor-grid popular-grid reveal-stagger" id="home-favorites">
       <!-- Fallback cards (replaced by Airtable "Flavors" table when connected) -->
-      <div class="card">
-        <img class="card-photo" src="https://pbs.twimg.com/media/ECqPC-XWsAMyXNh.jpg" alt="Cookies 'N Cream ice cream">
-        <h3>Cookies 'N Cream</h3>
-        <p>Pure bourbon vanilla with generous chunks of Oreo cookies throughout.</p>
+      <div class="card popular-card">
+        <div class="popular-portrait"><img class="card-photo" src="https://pbs.twimg.com/media/ECqPC-XWsAMyXNh.jpg" alt="Cookies 'N Cream ice cream"></div>
+        <div class="popular-card-copy">
+          <h3>Cookies 'N Cream</h3>
+          <p>Pure bourbon vanilla with generous chunks of Oreo cookies throughout.</p>
+          <details class="allergen-details"><summary>Allergen details</summary><p class="allergen-unlisted">Current allergen designations load from our flavor list. Please ask our team before ordering.</p></details>
+        </div>
       </div>
-      <div class="card">
-        <img class="card-photo" src="assets/cookie-dough-flavor.png" alt="Cookie Dough ice cream">
-        <h3>Cookie Dough</h3>
-        <p>Old-fashioned vanilla packed with chocolate chips and pieces of chocolate chip cookie dough.</p>
+      <div class="card popular-card">
+        <div class="popular-portrait"><img class="card-photo" src="assets/cookie-dough-flavor.png" alt="Cookie Dough ice cream"></div>
+        <div class="popular-card-copy">
+          <h3>Cookie Dough</h3>
+          <p>Old-fashioned vanilla packed with chocolate chips and pieces of chocolate chip cookie dough.</p>
+          <details class="allergen-details"><summary>Allergen details</summary><p class="allergen-unlisted">Current allergen designations load from our flavor list. Please ask our team before ordering.</p></details>
+        </div>
       </div>
-      <div class="card">
-        <img class="card-photo" src="https://img.wongnai.com/p/400x0/2019/04/20/a00bb1e7dbef438583f4ef3e85590a73.jpg" alt="Sticky Peanut Butter ice cream">
-        <h3>Sticky Peanut Butter</h3>
-        <p>Rich chocolate ice cream ribboned with sticky peanut butter for a salty-sweet parlor favorite.</p>
+      <div class="card popular-card">
+        <div class="popular-portrait"><img class="card-photo" src="https://img.wongnai.com/p/400x0/2019/04/20/a00bb1e7dbef438583f4ef3e85590a73.jpg" alt="Sticky Peanut Butter ice cream"></div>
+        <div class="popular-card-copy">
+          <h3>Sticky Peanut Butter</h3>
+          <p>Rich chocolate ice cream ribboned with sticky peanut butter for a salty-sweet parlor favorite.</p>
+          <details class="allergen-details"><summary>Allergen details</summary><p class="allergen-unlisted">Current allergen designations load from our flavor list. Please ask our team before ordering.</p></details>
+        </div>
       </div>
   </div>
 </section>
 
-<!-- ===== REVIEWS (Swensen's guest book) ===== -->
-<section class="home-fan-club home-review-counterwall">
+<!-- ===== REVIEWS (Google, Yelp, and Tripadvisor together) ===== -->
+<section class="home-fan-club home-review-carousel" id="home-reviews" aria-labelledby="home-reviews-title">
+  <div class="review-polaroid-wall" aria-hidden="true">
+    <figure class="review-wall-polaroid review-wall-polaroid-1"><img data-airtable-image="Home · Review Guests Outside" src="assets/reviews-happy-outside.png" alt="" loading="lazy" decoding="async"></figure>
+    <figure class="review-wall-polaroid review-wall-polaroid-2"><img data-airtable-image="Home · Mobile Review Polaroid Team" src="assets/reviews-polaroid-team.jpeg" alt="" loading="lazy" decoding="async"></figure>
+    <figure class="review-wall-polaroid review-wall-polaroid-3"><img data-airtable-image="Home · Review Guests Inside" src="assets/reviews-happy-inside.png" alt="" loading="lazy" decoding="async"></figure>
+    <figure class="review-wall-polaroid review-wall-polaroid-4"><img data-airtable-image="Home · Mobile Review Polaroid Friends" src="assets/reviews-polaroid-friends.jpeg" alt="" loading="lazy" decoding="async"></figure>
+    <figure class="review-wall-polaroid review-wall-polaroid-5"><img data-airtable-image="Home · Review Guests Outside" src="assets/reviews-happy-outside.png" alt="" loading="lazy" decoding="async"></figure>
+    <figure class="review-wall-polaroid review-wall-polaroid-6"><img data-airtable-image="Home · Mobile Review Polaroid Team" src="assets/reviews-polaroid-team.jpeg" alt="" loading="lazy" decoding="async"></figure>
+  </div>
   <div class="wrap">
-    <header class="review-counterwall-heading reveal">
-      <div>
-        <span class="kicker">From the Guest Book</span>
-        <h2>The love is real.</h2>
-      </div>
-      <div>
-        <p>Generations of San Franciscans have made our little corner part of their story. These are the words they leave behind.</p>
-        <nav aria-label="Read Swensen's reviews on other platforms">
-          <a href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">Google ↗</a>
-          <a href="https://www.yelp.com/biz/swensens-ice-cream-san-francisco" target="_blank" rel="noopener">Yelp ↗</a>
-          <a href="https://www.tripadvisor.com/Restaurant_Review-g60713-d370452-Reviews-Swensen_s-San_Francisco_California.html" target="_blank" rel="noopener">Tripadvisor ↗</a>
-        </nav>
-      </div>
+    <header class="review-carousel-heading reveal">
+      <h2 id="home-reviews-title">What our guests say.</h2>
+      <p>Sweet notes from Google, Yelp, Tripadvisor, and generations of neighbors at Hyde &amp; Union.</p>
     </header>
 
-    <div class="review-counterwall-stage home-review-layout reveal" id="home-review-showcase">
-      <aside class="review-counterwall-score" aria-label="Five-star guest reviews">
-        <small>Word around<br>Hyde &amp; Union</small>
-        <div>
-          <strong>5</strong>
-          <span class="review-counterwall-stars" aria-hidden="true">★★★★★</span>
-          <em>shining stars</em>
-        </div>
-        <span class="home-review-counter" id="home-review-counter">01 / 04</span>
-      </aside>
+    <div class="home-review-platform-switcher reveal" id="reviews-grid" role="tablist" aria-label="Choose a review platform">
+      <button class="home-review-platform-tab active" type="button" role="tab" data-review-platform="Google" aria-selected="true" aria-controls="home-review-showcase"><span aria-hidden="true">G</span><strong>Google</strong></button>
+      <button class="home-review-platform-tab" type="button" role="tab" data-review-platform="Yelp" aria-selected="false" aria-controls="home-review-showcase" tabindex="-1"><span aria-hidden="true">Y</span><strong>Yelp</strong></button>
+      <button class="home-review-platform-tab" type="button" role="tab" data-review-platform="Tripadvisor" aria-selected="false" aria-controls="home-review-showcase" tabindex="-1"><span aria-hidden="true">T</span><strong>Tripadvisor</strong></button>
+    </div>
+
+    <div class="review-carousel-stage home-review-card-stage reveal" id="home-review-showcase" data-direction="next">
+      <figure class="mobile-review-polaroid mobile-review-polaroid-top" aria-hidden="true">
+        <img data-airtable-image="Home · Mobile Review Polaroid Team" src="assets/reviews-polaroid-team.jpeg" alt="" loading="lazy" decoding="async">
+      </figure>
 
       <article class="home-review-feature">
+        <span class="home-review-note-label">A note from Hyde &amp; Union</span>
         <div class="home-review-feature-top">
-          <span class="home-review-platform" id="featured-platform">Guest Book</span>
+          <span class="home-review-platform" id="featured-platform" data-source="google">Google</span>
           <span class="stars" id="featured-stars" aria-label="5 out of 5 stars">★★★★★</span>
         </div>
         <span class="home-review-quote-mark" aria-hidden="true">“</span>
         <blockquote class="featured-quote" id="featured-quote">Worth the climb up the hill, every single time.</blockquote>
-        <footer><span class="featured-src" id="featured-src">— A happy regular</span></footer>
-        <div class="home-review-arrows" aria-label="Review controls">
-          <button type="button" data-home-review-dir="-1" aria-label="Previous review">‹</button>
-          <button type="button" data-home-review-dir="1" aria-label="Next review">›</button>
-        </div>
+        <footer>
+          <span class="featured-src" id="featured-src">— Preview note</span>
+          <div class="home-review-card-controls" aria-label="Browse reviews from this platform">
+            <button type="button" data-home-review-dir="-1" aria-label="Previous review"><span aria-hidden="true">←</span></button>
+            <span class="home-review-counter" id="home-review-counter">01 / 03</span>
+            <button type="button" data-home-review-dir="1" aria-label="Next review"><span aria-hidden="true">→</span></button>
+          </div>
+        </footer>
       </article>
+
+      <figure class="mobile-review-polaroid mobile-review-polaroid-bottom" aria-hidden="true">
+        <img data-airtable-image="Home · Mobile Review Polaroid Friends" src="assets/reviews-polaroid-friends.jpeg" alt="" loading="lazy" decoding="async">
+      </figure>
     </div>
 
-    <div class="home-review-rail review-counterwall-rail reveal" id="reviews-grid" aria-label="Choose a guest review">
-      <button class="home-review-note active" type="button" data-review-index="0"><b>01</b><span>In Store</span></button>
-      <button class="home-review-note" type="button" data-review-index="1"><b>02</b><span>Google</span></button>
-      <button class="home-review-note" type="button" data-review-index="2"><b>03</b><span>Yelp</span></button>
-      <button class="home-review-note" type="button" data-review-index="3"><b>04</b><span>Tripadvisor</span></button>
-    </div>
-
-    <footer class="review-counterwall-foot reveal">
-      <p><strong>Still curious?</strong> There are more sweet stories waiting at the review counter.</p>
+    <footer class="review-carousel-foot reveal">
       <div class="review-ctas">
-        <a class="btn btn-red" href="reviews.html">Read More Reviews</a>
-        <a href="https://swensensofsf.com/reviews/">Leave a review →</a>
+        <a class="btn btn-cream" href="reviews.html">Read More Reviews</a>
+        <a class="review-carousel-leave" href="https://swensensofsf.com/reviews/">Leave a review ↗</a>
       </div>
     </footer>
   </div>
@@ -194,15 +231,15 @@
   <div class="story-layout">
     <div class="story-media reveal">
       <figure class="story-photo story-photo-main">
-        <img src="https://s.hdnux.com/photos/01/26/50/61/22711364/16/rawImage.jpg" alt="Swensen's team members greeting customers outside the Hyde and Union parlor" loading="lazy">
+        <img data-airtable-image="Home · Story Team" src="https://s.hdnux.com/photos/01/26/50/61/22711364/16/rawImage.jpg" alt="Swensen's team members greeting customers outside the Hyde and Union parlor" loading="lazy">
         <figcaption>The people behind the parlor · <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE</a></figcaption>
       </figure>
       <figure class="story-photo">
-        <img src="assets/storefront-reference.png" alt="The original Swensen's storefront at Hyde and Union" loading="lazy">
+        <img data-airtable-image="Home · Story Storefront" src="assets/storefront-reference.png" alt="The original Swensen's storefront at Hyde and Union" loading="lazy">
         <figcaption>Our corner in Russian Hill</figcaption>
       </figure>
       <figure class="story-photo">
-        <img src="https://s.hdnux.com/photos/01/26/50/61/22711365/14/1200x0.jpg" alt="Swensen's staff serving customers inside the parlor" loading="lazy">
+        <img data-airtable-image="Home · Story Inside Parlor" src="https://s.hdnux.com/photos/01/26/50/61/22711365/14/1200x0.jpg" alt="Swensen's staff serving customers inside the parlor" loading="lazy">
         <figcaption>Serving San Francisco · <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE</a></figcaption>
       </figure>
       <div class="story-year" aria-label="Established 1948">
@@ -234,7 +271,7 @@
 
 <!-- ===== GIFTS CTA ===== -->
 <section class="home-merch-section">
-  <div class="home-merch-image" role="img" aria-label="Friends wearing Swensen's merchandise outside the parlor"></div>
+  <div class="home-merch-image" data-airtable-bg="Home · Merch Lifestyle" role="img" aria-label="Friends wearing Swensen's merchandise outside the parlor"></div>
   <div class="home-merch-copy reveal">
     <span class="kicker">Gifts &amp; Merch</span>
     <h2>Wear a little parlor history.</h2>
@@ -287,6 +324,6 @@
   </div>
 </footer>
 
-<script src="site.js"></script>
+<script src="site.js?v=57"></script>
 </body>
 </html>

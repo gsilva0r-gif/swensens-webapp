@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "sh -c 'mkdir -p dist && cp *.html *.css *.js dist/ && if [ -d assets ]; then cp -R assets dist/; fi'"
+    "build": "node scripts/build.mjs"
   },
   "devDependencies": {
     "vite": "^7.1.3"

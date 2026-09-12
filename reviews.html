@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Read what guests remember about handmade ice cream, old-fashioned cones, and visits to Swensen's at Hyde and Union in San Francisco.">
+<meta name="description" content="Read love notes, see parlor memories, and discover why generations of guests keep returning to Swensen's at Hyde and Union in San Francisco.">
 <title>Reviews &amp; Love Notes — Swensen's · San Francisco</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Yellowtail&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=57">
+<link rel="stylesheet" href="reviews-gelato.css?v=2">
 </head>
 <body data-page="reviews">
 
 <div class="bulk">🍨 We offer discounts on bulk orders — perfect for parties, offices &amp; events. <a href="contact.html">Get in touch!</a></div>
-<div class="bulb-trim" aria-hidden="true"></div>
+<div class="bulb-trim" data-airtable-bg="Global · Storefront Bulb Strip" aria-hidden="true"></div>
 
 <nav class="site-nav">
   <div class="nav-inner">
@@ -21,7 +22,7 @@
       <img class="site-logo-image" data-site-logo src="assets/logo-cup.png" alt="Swensen's Ice Cream and Sundaes since 1948">
     </a>
     <a class="legacy-mark" href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf" aria-label="Swensen's is a San Francisco Legacy Business">
-      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
+      <img data-airtable-image="Global · Legacy Business Badge" src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
     </a>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -36,141 +37,230 @@
   </div>
 </nav>
 
-<main>
-  <header class="reviews-photo-hero" role="img" aria-label="The real Swensen's team outside the Hyde and Union parlor">
-    <div class="wrap reviews-photo-hero-inner">
-      <div class="reviews-photo-hero-copy rise d1">
-        <span class="kicker">Stories From Hyde &amp; Union</span>
-        <h1>Good ice cream.<br><span>Better memories.</span></h1>
-        <p>A first cone, an old favorite, or one more stop before heading down the hill—people have been making Swensen's part of their San Francisco story since 1948.</p>
-        <div class="reviews-photo-links" aria-label="Read Swensen's reviews elsewhere">
-          <a href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">Google Reviews ↗</a>
-          <a href="https://www.yelp.com/biz/swensens-ice-cream-san-francisco" target="_blank" rel="noopener">Yelp ↗</a>
+<main class="lovebook">
+  <header class="lovebook-hero">
+    <div class="lovebook-hero-photo" data-airtable-bg="Reviews · Happy Guests Inside" aria-hidden="true"></div>
+    <div class="lovebook-hero-wash" aria-hidden="true"></div>
+    <div class="lovebook-wide lovebook-hero-inner">
+      <figure class="lovebook-float lovebook-float-photo rise d1">
+        <span class="lovebook-tape" aria-hidden="true"></span>
+        <img data-airtable-image="Reviews · Team Polaroid" src="assets/reviews-polaroid-team.jpeg" alt="Happy guests and the Swensen's team smiling together inside the parlor">
+        <figcaption>One more for the memory book</figcaption>
+      </figure>
+
+      <div class="lovebook-title rise d2">
+        <span class="lovebook-kicker">From the guest book · Hyde &amp; Union</span>
+        <h1>Love notes<br><em>to the corner.</em></h1>
+        <p>Generations have climbed the hill for a scoop—and left us stories sweeter than anything in the case.</p>
+        <nav class="lovebook-source-links" aria-label="Read Swensen's reviews">
+          <a href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">Google reviews ↗</a>
+          <a href="https://www.yelp.com/biz/swensens-ice-cream-san-francisco" target="_blank" rel="noopener">Yelp reviews ↗</a>
           <a href="https://www.tripadvisor.com/Restaurant_Review-g60713-d370452-Reviews-Swensen_s-San_Francisco_California.html" target="_blank" rel="noopener">Tripadvisor ↗</a>
-        </div>
+        </nav>
       </div>
+
+      <figure class="lovebook-float lovebook-float-drawing rise d3">
+        <span class="lovebook-tape lovebook-tape-red" aria-hidden="true"></span>
+        <img data-airtable-image="Reviews · Kids Drawing Sundae" src="assets/reviews-kid-drawing-sundae-v2.webp" alt="A colorful childlike crayon drawing of an ice cream sundae surrounded by hearts">
+        <figcaption>Made with crayons &amp; love</figcaption>
+      </figure>
+
+      <article class="lovebook-featured-note rise d4" id="featured-review-card">
+        <span class="lovebook-pin" aria-hidden="true"></span>
+        <span class="review-preview-label" id="featured-preview-label">Sample note</span>
+        <span class="stars" id="featured-stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote class="featured-quote" id="featured-quote">Worth the climb up the hill, every single time.</blockquote>
+        <footer class="featured-src" id="featured-src">Sample note · In Store</footer>
+      </article>
     </div>
-    <a class="reviews-photo-credit" href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php" target="_blank" rel="noopener">Real Swensen's team photo · SFGATE ↗</a>
+    <a class="lovebook-scroll" href="#guest-notes"><span>Open the guest book</span><b aria-hidden="true">↓</b></a>
   </header>
 
-  <section class="reviews-clean-voices">
-    <div class="wrap">
-      <div class="reviews-clean-heading reveal">
-        <span class="kicker">The Word Around The Parlor</span>
-        <h2>Fresh from the review counter.</h2>
-        <p>Switch between Google and Yelp notes, then open either platform to see the newest reviews live.</p>
+  <section class="lovebook-notes" id="guest-notes" aria-labelledby="guest-notes-title">
+    <div class="lovebook-wide">
+      <div class="lovebook-heading reveal">
+        <div>
+          <span class="lovebook-kicker">Pinned to the parlor wall</span>
+          <h2 id="guest-notes-title">Little notes.<br><em>Big love.</em></h2>
+        </div>
+        <div class="lovebook-heading-copy">
+          <p>Real words from Google, Yelp, and guests who have made this corner part of their San Francisco ritual.</p>
+          <span>Swipe or drag the notes <b aria-hidden="true">→</b></span>
+        </div>
       </div>
 
-      <section class="reviews-platform-hub reveal" aria-labelledby="review-hub-title">
-        <div class="reviews-platform-hub-head">
-          <div>
-            <span class="reviews-live-badge"><span aria-hidden="true"></span>Airtable connected</span>
-            <h3 id="review-hub-title">Google &amp; Yelp review box</h3>
-          </div>
-          <p>Reviews displayed here update from the site's Airtable. Use the live link for the newest platform activity.</p>
-        </div>
-        <div class="reviews-platform-tabs" role="tablist" aria-label="Choose a review platform">
-          <button type="button" class="reviews-platform-tab active" data-review-platform="Google" role="tab" aria-selected="true">Google</button>
-          <button type="button" class="reviews-platform-tab" data-review-platform="Yelp" role="tab" aria-selected="false">Yelp</button>
-        </div>
-        <div class="reviews-platform-feed" id="platform-review-feed" aria-live="polite">
-          <article class="platform-review-item">
-            <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote>Loading the review counter…</blockquote>
-          </article>
-        </div>
-        <div class="reviews-platform-hub-foot">
-          <span id="platform-review-status">Airtable-powered demo feed</span>
-          <a id="platform-live-link" href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">Open live Google reviews ↗</a>
-        </div>
-      </section>
-
-      <div class="reviews-editorial-divider reveal"><span>One for the scrapbook</span></div>
-
-      <article class="reviews-clean-feature reveal" id="featured-review-card">
-        <span class="reviews-clean-quote-mark" aria-hidden="true">“</span>
-        <div>
-          <span class="review-preview-label" id="featured-preview-label">Layout preview</span>
-          <span class="stars" id="featured-stars" aria-label="5 out of 5 stars">★★★★★</span>
-          <blockquote class="featured-quote" id="featured-quote">Worth the climb up the hill, every single time.</blockquote>
-          <footer class="featured-src" id="featured-src">Layout preview · In Store</footer>
-        </div>
-      </article>
-
-      <div class="review-grid reviews-clean-list reveal-stagger" id="reviews-grid">
+      <div class="review-grid lovebook-note-rail reveal" id="reviews-grid" tabindex="0" aria-label="Guest love notes; swipe or use the horizontal scrollbar to browse">
         <article class="review review--sample">
           <div class="review-topline"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><span class="review-source-badge">Google</span></div>
           <blockquote>The sticky chewy chocolate lives up to the hype. An SF institution that still feels like 1948 inside.</blockquote>
-          <footer><span class="src">Layout preview</span><span class="review-number">01</span></footer>
+          <footer><span class="src">Sample note</span><span class="review-number">01</span></footer>
         </article>
         <article class="review review--sample">
           <div class="review-topline"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><span class="review-source-badge">Yelp</span></div>
           <blockquote>We take every visitor here. Cable car ride, a cone at Swensen's, then walk down to the bay. Perfect afternoon.</blockquote>
-          <footer><span class="src">Layout preview</span><span class="review-number">02</span></footer>
+          <footer><span class="src">Sample note</span><span class="review-number">02</span></footer>
         </article>
         <article class="review review--sample">
-          <div class="review-topline"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><span class="review-source-badge">Tripadvisor</span></div>
+          <div class="review-topline"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><span class="review-source-badge">In Store</span></div>
           <blockquote>You can taste the difference when it's made by hand in the same shop. My kids love it as much as I did growing up.</blockquote>
-          <footer><span class="src">Layout preview</span><span class="review-number">03</span></footer>
+          <footer><span class="src">Sample note</span><span class="review-number">03</span></footer>
         </article>
       </div>
 
-      <div class="reviews-clean-foot reveal">
-        <p id="reviews-status"><strong>Layout preview:</strong> replace the sample rows in Airtable and this page updates automatically.</p>
-        <div>
-          <a href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">More on Google →</a>
-          <a href="https://www.yelp.com/biz/swensens-ice-cream-san-francisco" target="_blank" rel="noopener">More on Yelp →</a>
-        </div>
+      <div class="lovebook-notes-foot reveal">
+        <p id="reviews-status"><strong>Preview notes:</strong> approved customer reviews will appear here automatically.</p>
+        <span>A growing stack of sweet memories</span>
       </div>
     </div>
   </section>
 
-  <section class="customer-video-stories" aria-labelledby="customer-video-title">
-    <div class="wrap">
+  <section class="lovebook-keepsakes" aria-labelledby="keepsakes-title">
+    <div class="lovebook-wide">
+      <div class="lovebook-keepsakes-intro reveal">
+        <span class="lovebook-kicker">The fridge-door collection</span>
+        <h2 id="keepsakes-title">Smiles, scoops<br><em>&amp; masterpieces.</em></h2>
+        <p>The best parts of the parlor never fit neatly in a frame. They arrive as group photos, sticky little fingerprints, and drawings we want to keep forever.</p>
+      </div>
+
+      <div class="lovebook-collage reveal">
+        <figure class="keepsake keepsake-wide keepsake-outside">
+          <span class="lovebook-tape" aria-hidden="true"></span>
+          <div class="keepsake-photo keepsake-photo-red">
+            <img data-airtable-image="Reviews · Happy Guests Outside" src="assets/reviews-happy-outside.png" alt="Families and friends enjoying ice cream together outside the Swensen's storefront">
+          </div>
+          <figcaption>Right outside the corner shop · another sweet evening</figcaption>
+        </figure>
+
+        <figure class="keepsake keepsake-selfie keepsake-team">
+          <span class="lovebook-tape lovebook-tape-red" aria-hidden="true"></span>
+          <img data-airtable-image="Reviews · Team Polaroid" src="assets/reviews-polaroid-team.jpeg" alt="Guests and Swensen's team members smiling for a group photo">
+          <figcaption>Friends behind the counter</figcaption>
+        </figure>
+
+        <figure class="keepsake keepsake-art keepsake-sundae">
+          <span class="lovebook-tape lovebook-tape-gold" aria-hidden="true"></span>
+          <img data-airtable-image="Reviews · Kids Drawing Sundae" src="assets/reviews-kid-drawing-sundae-v2.webp" alt="A colorful crayon sundae drawing with hearts and stars">
+          <figcaption>Five stars in crayon</figcaption>
+        </figure>
+
+        <article class="keepsake keepsake-small-note" aria-label="A note from Swensen's">
+          <span class="lovebook-pin" aria-hidden="true"></span>
+          <p>“The drawings go up. The photos stay. Every visit adds another page.”</p>
+          <span>— From our little corner</span>
+        </article>
+
+        <figure class="keepsake keepsake-art keepsake-corner">
+          <span class="lovebook-tape" aria-hidden="true"></span>
+          <img data-airtable-image="Reviews · Kids Drawing Corner" src="assets/reviews-kid-drawing-corner-v2.webp" alt="A childlike crayon drawing of a happy family, ice cream shop, and cable car">
+          <figcaption>Hyde Street, imagined in crayon</figcaption>
+        </figure>
+
+        <figure class="keepsake keepsake-selfie keepsake-friends">
+          <span class="lovebook-tape lovebook-tape-gold" aria-hidden="true"></span>
+          <img data-airtable-image="Reviews · Friends Polaroid" src="assets/reviews-polaroid-friends.jpeg" alt="A group of friends taking a cheerful selfie inside Swensen's">
+          <figcaption>One scoop becomes a whole night</figcaption>
+        </figure>
+
+        <figure class="keepsake keepsake-wide keepsake-inside">
+          <span class="lovebook-tape lovebook-tape-red" aria-hidden="true"></span>
+          <div class="keepsake-photo keepsake-photo-red">
+            <img data-airtable-image="Reviews · Happy Guests Inside" src="assets/reviews-happy-inside.png" alt="A multigenerational group laughing over sundaes inside the ice cream parlor">
+          </div>
+          <figcaption>Sundaes taste better around a full table</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="lovebook-platforms" aria-labelledby="review-hub-title">
+    <div class="lovebook-wide">
+      <div class="lovebook-platform-shell">
+        <header class="lovebook-platform-intro reveal">
+          <span class="lovebook-kicker">Straight from the source</span>
+          <h2 id="review-hub-title">Pick your<br><em>stack.</em></h2>
+          <p>Google, Yelp, or Tripadvisor—three places to hear what guests are saying about one little corner.</p>
+          <span class="lovebook-script">still worth the climb</span>
+        </header>
+
+        <div class="reviews-platform-hub lovebook-platform-hub reveal">
+        <div class="reviews-platform-tabs" role="tablist" aria-label="Choose a review platform">
+          <button type="button" class="reviews-platform-tab active" data-review-platform="Google" role="tab" aria-selected="true"><span aria-hidden="true">G</span><strong>Google</strong></button>
+          <button type="button" class="reviews-platform-tab" data-review-platform="Yelp" role="tab" aria-selected="false"><span aria-hidden="true">Y</span><strong>Yelp</strong></button>
+          <button type="button" class="reviews-platform-tab" data-review-platform="Tripadvisor" role="tab" aria-selected="false"><span aria-hidden="true">T</span><strong>Tripadvisor</strong></button>
+        </div>
+        <div class="reviews-platform-feed" id="platform-review-feed" aria-live="polite">
+          <article class="platform-review-item">
+            <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote>Loading guest notes…</blockquote>
+          </article>
+        </div>
+        <div class="reviews-platform-hub-foot">
+          <span id="platform-review-status">Preview guest notes</span>
+          <a id="platform-live-link" href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">Open live Google reviews ↗</a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lovebook-legacy" aria-labelledby="legacy-love-title">
+    <div class="lovebook-wide lovebook-legacy-grid">
+      <figure class="lovebook-award reveal">
+        <span class="lovebook-tape" aria-hidden="true"></span>
+        <img data-airtable-image="Reviews · Best of the Bay Area Team" src="assets/best-of-bay-area-team.png" alt="The Swensen's team celebrating a Best of the Bay Area award">
+        <figcaption>Best Ice Cream Shop · Best of the Bay Area</figcaption>
+      </figure>
+      <div class="lovebook-legacy-copy reveal">
+        <span class="lovebook-kicker">The love is local</span>
+        <h2 id="legacy-love-title">A legacy you can still <em>taste.</em></h2>
+        <p>Awards are sweet. The real honor is watching another generation walk through the same door, order an old favorite, and make Hyde &amp; Union part of its own story.</p>
+        <div class="lovebook-legacy-mark">
+          <img data-airtable-image="Global · Legacy Business Badge" src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business emblem" loading="lazy">
+          <span>San Francisco<br>Legacy Business</span>
+        </div>
+        <a href="about.html">Read the Swensen's story <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="customer-video-stories lovebook-video" aria-labelledby="customer-video-title">
+    <div class="lovebook-wide">
       <div class="customer-video-heading reveal">
-        <span class="kicker">Voices From The Counter</span>
-        <h2 id="customer-video-title">Why Swensen's?</h2>
-        <p>Short conversations with the people who climb the hill, bring their families, and keep coming back for another scoop.</p>
+        <span class="lovebook-kicker">In their own words</span>
+        <h2 id="customer-video-title">One sweet question.</h2>
+        <p>Short conversations with the people who climb the hill, bring their families, and keep coming back.</p>
       </div>
       <div class="customer-video-layout reveal">
         <div class="customer-video-stage" id="customer-video-stage" aria-live="polite">
-          <div class="customer-video-placeholder">
+          <div class="customer-video-placeholder" data-airtable-bg="Reviews · Guest Video Cover">
             <span class="customer-video-play" aria-hidden="true">▶</span>
             <div>
-              <span class="kicker">Guest Stories Coming Soon</span>
+              <span class="lovebook-kicker">Guest stories coming soon</span>
               <h3>What keeps you coming back?</h3>
-              <p>This space is ready for quick, candid interviews filmed right at Hyde &amp; Union.</p>
+              <p>This space is ready for candid conversations filmed at Hyde &amp; Union.</p>
             </div>
           </div>
         </div>
         <aside class="customer-video-prompt">
-          <span class="script">one sweet question</span>
+          <span class="lovebook-script">tell us yours</span>
           <h3>“What does Swensen's mean to you?”</h3>
-          <p>New interviews will appear here as a growing collection of the people and memories behind the five-star notes.</p>
+          <p>New interviews will form a growing portrait of the people behind the five-star notes.</p>
           <div class="customer-video-list" id="customer-video-list" aria-label="Choose a guest video" hidden></div>
         </aside>
       </div>
     </div>
   </section>
 
-  <section class="reviews-photo-break" role="img" aria-label="A real Swensen's team member serving customers inside the Hyde Street parlor">
-    <div class="wrap reviews-photo-break-inner reveal">
-      <span class="script">Made here. Shared here.</span>
-      <h2>The parlor is part of the story.</h2>
-      <p>Real people, fresh batches, and the same little corner shop that has welcomed San Francisco since 1948.</p>
-      <a class="reviews-photo-source" href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php" target="_blank" rel="noopener">Real Swensen's photo · SFGATE ↗</a>
-    </div>
-  </section>
-
-  <section class="reviews-clean-invite">
-    <div class="wrap reviews-clean-invite-inner reveal">
+  <section class="lovebook-invite">
+    <div class="lovebook-wide lovebook-invite-inner reveal">
       <div>
-        <span class="kicker">Your Turn</span>
-        <h2>Had a scoop worth talking about?</h2>
-        <p>Your note helps the next person find this little corner of San Francisco—and gives our team something sweet to read.</p>
+        <span class="lovebook-kicker">Your turn</span>
+        <h2>Leave a little<br><em>love note.</em></h2>
+        <p>Your words help the next person discover our corner—and give the team something sweet to pin up.</p>
       </div>
-      <div class="reviews-clean-invite-actions">
-        <a class="btn btn-red" href="https://swensensofsf.com/reviews/">Leave a Review</a>
+      <div class="lovebook-invite-actions">
+        <a class="btn btn-cream" href="https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109" target="_blank" rel="noopener">Review us on Google</a>
+        <a href="https://www.yelp.com/biz/swensens-ice-cream-san-francisco" target="_blank" rel="noopener">Leave a Yelp review ↗</a>
         <a href="https://swensensofsf.com/feedback/">Send private feedback</a>
       </div>
     </div>
@@ -217,6 +307,7 @@
   </div>
 </footer>
 
-<script src="site.js"></script>
+<script src="site.js?v=57"></script>
+<script src="reviews-gelato.js"></script>
 </body>
 </html>

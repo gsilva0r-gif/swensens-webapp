@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Meet the people, place, and handmade traditions behind the original Swensen's ice cream parlor at Hyde and Union in San Francisco, established in 1948.">
-<title>About Us — The Original Swensen's · San Francisco</title>
+<title>Our Story — The Original Swensen's · San Francisco</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Yellowtail&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=57">
+<link rel="stylesheet" href="about-story.css?v=51">
 </head>
 <body data-page="about">
 
 <div class="bulk">🍨 We offer discounts on bulk orders — perfect for parties, offices &amp; events. <a href="contact.html">Get in touch!</a></div>
-<div class="bulb-trim" aria-hidden="true"></div>
+<div class="bulb-trim" data-airtable-bg="Global · Storefront Bulb Strip" aria-hidden="true"></div>
 
 <nav class="site-nav">
   <div class="nav-inner">
@@ -21,7 +22,7 @@
       <img class="site-logo-image" data-site-logo src="assets/logo-cup.png" alt="Swensen's Ice Cream and Sundaes since 1948">
     </a>
     <a class="legacy-mark" href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf" aria-label="Swensen's is a San Francisco Legacy Business">
-      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
+      <img data-airtable-image="Global · Legacy Business Badge" src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business">
     </a>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -37,95 +38,214 @@
 </nav>
 
 <main>
-  <header class="about-clean-hero">
-    <div class="wrap about-clean-hero-grid">
-      <div class="about-clean-hero-copy">
-        <span class="kicker rise d1">The Original · Hyde &amp; Union</span>
-        <h1 class="rise d2">Our history is still being <span class="red">handmade.</span></h1>
-        <p class="rise d3">Swensen's opened at this San Francisco corner in 1948. More than 75 years later, the recipes, the people, and the parlor itself still connect every scoop to where the story began.</p>
-        <span class="script rise d4">Good as father used to make!</span>
-      </div>
-      <figure class="about-clean-hero-photo show-pop">
-        <img src="assets/storefront-reference.png" alt="The original Swensen's ice cream parlor at Hyde and Union">
-        <figcaption>1999 Hyde Street · San Francisco</figcaption>
-      </figure>
+  <header class="founder-opening" id="story-begins">
+    <div class="founder-opening-glow" aria-hidden="true"></div>
+    <div class="story-wide founder-heading">
+      <span class="story-section-label rise d1">The Beginning Of</span>
+      <h1 class="rise d2">Earle Swensen</h1>
+      <p class="founder-subtitle rise d3">From a shipboard ice cream freezer to the original corner at Hyde &amp; Union.</p>
     </div>
+
+    <div class="story-wide founder-layout">
+      <div class="founder-visual show-pop">
+        <figure class="founder-storefront">
+          <img data-airtable-image="About · Hero Storefront" src="assets/storefront-evening-original.png" alt="Swensen's glowing corner storefront at Hyde and Union in San Francisco">
+          <figcaption>The original corner · 1999 Hyde Street</figcaption>
+        </figure>
+        <figure class="founder-sign">
+          <img data-airtable-image="About · Original Sign" src="assets/logo-storefront-clean.png" alt="The Original Swensen's Ice Cream and Sherbet sign">
+        </figure>
+        <div class="founder-year" aria-label="Established 1948 at Hyde and Union">
+          <strong>1948</strong>
+          <span>Hyde &amp; Union</span>
+        </div>
+      </div>
+
+      <div class="founder-copy rise d4">
+        <blockquote class="founder-quote">“Ice cream is my life.”<cite>— Earle Swensen</cite></blockquote>
+        <p class="founder-lead">During World War II, Earle learned to make ice cream aboard a troop transport in the South Pacific. What began beside the ship's freezer became the work he wanted to spend his life doing.</p>
+        <p>After returning to San Francisco, he went back to his job as a deputy city assessor—but the ice cream stayed with him. In April 1948, Earle and his wife, Nora, used their $750 savings and borrowed $5,000 to open <em>See Us Freeze Ice Cream</em> at Union and Hyde.</p>
+        <p>Business was slow at first. Earle worked at the city office by day, listened to customers, and refined recipes at the parlor by night. Eventually he left the office behind, gave the shop his name, and became San Francisco's “Mr. Ice Cream.”</p>
+        <div class="founder-facts" aria-label="Founding facts">
+          <div><strong>$750</strong><span>Their savings</span></div>
+          <div><strong>April 1948</strong><span>The doors opened</span></div>
+          <div><strong>1 corner</strong><span>Where it all began</span></div>
+        </div>
+      </div>
+    </div>
+
+    <a class="founder-scroll" href="#swensens-timeline">
+      <span>Follow the Swensen's story</span>
+      <span aria-hidden="true">↓</span>
+    </a>
   </header>
 
-  <section class="about-clean-story">
-    <div class="wrap about-clean-story-grid">
-      <div class="about-clean-story-title reveal">
-        <span class="kicker">Our History of Ice Cream</span>
-        <h2>One recipe.<br>Three generations of trust.</h2>
+  <section class="heritage-timeline" id="swensens-timeline" aria-labelledby="story-timeline-title">
+    <div class="story-wide heritage-timeline-heading reveal">
+      <div>
+        <span class="story-section-label">The Original Swensen's</span>
+        <h2 id="story-timeline-title">Our timeline</h2>
       </div>
-      <div class="about-clean-story-copy reveal">
-        <p class="about-clean-lead">Founder <strong>Earle Swensen</strong> opened the doors at Union and Hyde in 1948. He selected the highest-quality ingredients he could find and kept adjusting his recipes until they were just right.</p>
-        <p><strong>Richard Campana</strong> started working here at fifteen. He went on to make ice cream for more than fifty years, and Earle entrusted him to continue the Swensen's legacy.</p>
-        <p>Today, Richard is retired and his daughter and son-in-law, <strong>Diane and Jim</strong>, carry the parlor forward. Jim learned the craft from Richard—the kind of knowledge passed person to person, batch by batch.</p>
-        <p class="about-clean-quote">The recipe survived because the teaching did.</p>
+      <div class="timeline-heading-note">
+        <p>From Earle's first batch at sea to a San Francisco Legacy Business.</p>
+        <span>Drag, swipe, or use the arrows</span>
+      </div>
+    </div>
+
+    <div class="timeline-shell reveal">
+      <ol class="timeline-track" id="swensens-history-track" data-history-track tabindex="0" aria-label="Swensen's history timeline">
+        <li>
+          <article class="timeline-card">
+            <time>World War II</time>
+            <h3>Ice cream at sea</h3>
+            <p>Earle learns to make ice cream aboard a troop transport in the South Pacific.</p>
+          </article>
+        </li>
+        <li>
+          <article class="timeline-card">
+            <time>April 1948</time>
+            <h3>See Us Freeze opens</h3>
+            <p>Earle and Nora open at Union and Hyde with their savings, a loan, and a one-can ice cream machine.</p>
+          </article>
+        </li>
+        <li>
+          <article class="timeline-card">
+            <time>1959</time>
+            <h3>Richard joins at 15</h3>
+            <p>Richard Campana starts behind the counter and begins learning Earle's recipes.</p>
+          </article>
+        </li>
+        <li>
+          <article class="timeline-card">
+            <time>1964</time>
+            <h3>The recipe travels</h3>
+            <p>Richard becomes manager and trains new franchisees at the original San Francisco shop.</p>
+          </article>
+        </li>
+        <li>
+          <article class="timeline-card">
+            <time>1967</time>
+            <h3>“Mr. Ice Cream”</h3>
+            <p>The San Francisco Chronicle gives Earle the nickname that captures his life's work.</p>
+          </article>
+        </li>
+        <li>
+          <article class="timeline-card">
+            <time>1998</time>
+            <h3>Richard takes ownership</h3>
+            <p>Earle's daughters sell the original parlor to the man who had protected it for decades.</p>
+          </article>
+        </li>
+        <li>
+          <article class="timeline-card">
+            <time>June 2020</time>
+            <h3>The next generation</h3>
+            <p>Richard's daughter, Diane, and her husband, Jim, step in to keep the parlor going.</p>
+          </article>
+        </li>
+        <li>
+          <article class="timeline-card">
+            <time>June 2023</time>
+            <h3>A Legacy Business</h3>
+            <p>San Francisco recognizes Swensen's as part of the city's living cultural history.</p>
+          </article>
+        </li>
+      </ol>
+      <div class="timeline-controls" aria-label="Timeline controls">
+        <button type="button" data-history-direction="-1" aria-controls="swensens-history-track" aria-label="See earlier Swensen's milestones">←</button>
+        <span data-history-status aria-live="polite">Beginning of the timeline</span>
+        <button type="button" data-history-direction="1" aria-controls="swensens-history-track" aria-label="See later Swensen's milestones">→</button>
       </div>
     </div>
   </section>
 
-  <section class="about-clean-craft">
-    <div class="wrap about-clean-craft-grid">
-      <figure class="about-clean-team-photo reveal">
-        <img src="https://s.hdnux.com/photos/01/26/50/61/22711364/16/rawImage.jpg" alt="Swensen's team members outside the Hyde and Union parlor" loading="lazy">
-        <figcaption>The people behind the parlor · <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE</a></figcaption>
-      </figure>
-      <div class="about-clean-craft-copy reveal">
-        <span class="kicker">Original Recipe, Fashionable Ice Cream</span>
-        <h2>Still made here. Still made by hand.</h2>
-        <p>Many dessert shops no longer make their ice cream in-house. We still use classic recipes and quality ingredients inside the same Hyde Street parlor where our doors first opened.</p>
-        <p>Our waffle cones are house-made, our caramel is drizzled by hand, and every flavor begins with the same promise: make it fresh and make it worth coming back for.</p>
-        <div class="about-clean-links">
-          <a href="flavors.html">Explore the flavors <span aria-hidden="true">→</span></a>
-          <a href="menu.html">See the parlor menu <span aria-hidden="true">→</span></a>
+  <section class="story-spotlight" aria-labelledby="story-spotlight-title">
+    <div class="story-wide story-spotlight-intro reveal">
+      <span class="story-section-label">Scroll &amp; Discover</span>
+      <h2 id="story-spotlight-title">The people, place, and promise behind the parlor.</h2>
+      <p>As each chapter reaches the center of the page, its photograph comes forward.</p>
+    </div>
+
+    <div class="story-wide story-spotlight-layout">
+      <div class="spotlight-copy">
+        <article class="spotlight-step is-active" data-story-step="corner" tabindex="0">
+          <span class="spotlight-number">01 · The Original Corner</span>
+          <h3>See Us Freeze becomes Swensen's.</h3>
+          <p>The shop opened under the playful name See Us Freeze Ice Cream. When it took Earle's name, the little Russian Hill parlor became the birthplace of Swensen's—while remaining its own independent San Francisco store.</p>
+        </article>
+
+        <article class="spotlight-step" data-story-step="keeper" tabindex="0">
+          <span class="spotlight-number">02 · The Recipe Keeper</span>
+          <h3>Richard learned it directly from Earle.</h3>
+          <p>Richard Campana began working behind the counter in 1959 at just fifteen years old. By 1964 he was the manager, preserving Earle's standards and teaching new franchisees how to make every flavor at the original shop.</p>
+        </article>
+
+        <article class="spotlight-step" data-story-step="family" tabindex="0">
+          <span class="spotlight-number">03 · A Family Hand-Off</span>
+          <h3>The next generation chose to keep it going.</h3>
+          <p>Richard became the owner in 1998. When the pandemic put the parlor's future in doubt, his daughter Diane and her husband Jim stepped in during June 2020 and learned what it would take to carry the shop forward.</p>
+        </article>
+
+        <article class="spotlight-step" data-story-step="made-here" tabindex="0">
+          <span class="spotlight-number">04 · Made Here, Every Day</span>
+          <h3>The method still lives inside the shop.</h3>
+          <p>Every drop of ice cream has been made in-house since 1948. Jim builds flavor after flavor from each base while the team finishes house-made waffle cones, hand-drizzled caramel, and the classics guests return for.</p>
+          <div class="spotlight-links">
+            <a href="flavors.html">Explore the flavors <span aria-hidden="true">→</span></a>
+            <a href="menu.html">See the parlor menu <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+
+      <div class="spotlight-stage" aria-label="Photographs from the Swensen's story">
+        <div class="spotlight-collage">
+          <figure class="spotlight-photo spotlight-photo-corner is-active" data-story-photo="corner">
+            <img data-airtable-image="About · Daylight Storefront" src="assets/storefront-reference.png" alt="The original Swensen's storefront at Hyde and Union during the day" loading="lazy">
+            <figcaption>The original corner</figcaption>
+          </figure>
+          <figure class="spotlight-photo spotlight-photo-keeper" data-story-photo="keeper">
+            <img data-airtable-image="About · Original Sign" src="assets/logo-storefront-clean.png" alt="The Original Swensen's Ice Cream and Sherbet storefront sign" loading="lazy">
+            <figcaption>The sign that still welcomes San Francisco</figcaption>
+          </figure>
+          <figure class="spotlight-photo spotlight-photo-family" data-story-photo="family">
+            <img data-airtable-image="About · Team Outside" src="https://s.hdnux.com/photos/01/26/50/61/22711364/16/rawImage.jpg" alt="Swensen's team members outside the Hyde and Union parlor" loading="lazy">
+            <figcaption>The people behind the parlor</figcaption>
+          </figure>
+          <figure class="spotlight-photo spotlight-photo-made" data-story-photo="made-here">
+            <img data-airtable-image="About · Award Celebration" src="assets/best-of-bay-area-team.png" alt="The Swensen's team celebrating a Best of the Bay Area award" loading="lazy">
+            <figcaption>The tradition continues</figcaption>
+          </figure>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="about-award-feature">
-    <div class="wrap about-award-feature-grid">
-      <div class="about-award-feature-copy reveal">
-        <span class="kicker">Best of the Bay Area</span>
-        <h2>A little red-carpet moment for a neighborhood parlor.</h2>
-        <p>Swensen's has always belonged to the people who make the climb up Hyde Street, bring their families, and return for the flavor they have been thinking about all week.</p>
-        <p>This celebration belongs to the team behind the counter and every guest who has kept our original San Francisco shop part of the city's story.</p>
-        <a class="about-award-link" href="reviews.html">See what guests are saying <span aria-hidden="true">→</span></a>
+  <section class="story-legacy">
+    <div class="story-wide story-legacy-grid">
+      <div class="story-legacy-mark reveal">
+        <img data-airtable-image="Global · Legacy Business Badge" src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business emblem" loading="lazy">
       </div>
-      <figure class="about-award-feature-photo reveal">
-        <img src="assets/best-of-bay-area-team.png" alt="The Swensen's team celebrating a Best of the Bay Area award" loading="lazy">
-        <figcaption>Celebrating Swensen's as a Best of the Bay Area ice cream shop</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="about-clean-legacy band-brown">
-    <div class="wrap about-clean-legacy-grid reveal">
-      <img src="assets/legacy-business-clear.png" alt="San Francisco Legacy Business emblem">
-      <div>
-        <span class="kicker">A San Francisco Legacy Business</span>
+      <div class="story-legacy-copy reveal">
+        <span class="story-section-label">A San Francisco Legacy Business</span>
         <h2>History you can still walk into.</h2>
         <p>The corner storefront, the classic menu board, the team behind the counter, and another batch being made in-house—our history is not a display. It is the everyday life of the parlor.</p>
       </div>
-      <div class="about-clean-press">
-        <a href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf">Legacy Registry ↗</a>
-        <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE Story ↗</a>
-        <a href="https://www.sfchronicle.com/food/restaurants/article/swensens-ice-cream-17746804.php">SF Chronicle ↗</a>
+      <div class="story-legacy-links reveal">
+        <a href="https://www.sf.gov/sites/default/files/2023-06/Item%202c.%20LBR-2021-22-017%20Swensen%27s.pdf">Legacy Registry <span aria-hidden="true">↗</span></a>
+        <a href="https://www.sfgate.com/food/article/how-swensens-ice-cream-survived-17317342.php">SFGATE Story <span aria-hidden="true">↗</span></a>
+        <a href="https://www.sfchronicle.com/food/restaurants/article/swensens-ice-cream-17746804.php">SF Chronicle <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </section>
 
-  <section class="about-clean-visit">
-    <div class="wrap about-clean-visit-inner reveal">
+  <section class="story-visit">
+    <div class="story-wide story-visit-inner reveal">
       <div>
-        <span class="script">The story tastes better in person.</span>
-        <h2>Meet us at the corner.</h2>
+        <span class="script">Good as father used to make!</span>
+        <h2>The story tastes better in person.</h2>
         <p>1999 Hyde Street · San Francisco, California</p>
       </div>
-      <div class="about-clean-visit-actions">
+      <div class="story-visit-actions">
         <a class="btn btn-red" href="https://goo.gl/maps/P2N2HEAVufNcdwCVA">Get Directions</a>
         <a class="btn btn-cream" href="contact.html">Hours &amp; Contact</a>
       </div>
@@ -174,6 +294,7 @@
   </div>
 </footer>
 
-<script src="site.js"></script>
+<script src="site.js?v=57"></script>
+<script src="about-story.js?v=51"></script>
 </body>
 </html>

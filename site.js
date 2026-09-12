@@ -4,8 +4,10 @@
    text, prices, photos, and reviews without touching the code.
    ============================================================ */
 
-const AIRTABLE_TOKEN = "patk7K1dOR9VAzSxd.269edad20aeeaed850a7da1630edaa10f9166fdeb8522749c1b76fbd2dd6d535";                 // ← paste your read-only token here
-const AIRTABLE_BASE  = "appKFlb55fbhaT5GJ"; // Swensen's Website base
+// Airtable is read through the site's same-origin server endpoint. Keeping the
+// credential on the server means the public browser bundle and GitHub source
+// never expose it.
+const AIRTABLE_API_ENDPOINT = window.SWENSENS_AIRTABLE_API || "/api/airtable";
 
 const TABLES = {
   flavors:  "Flavors",
@@ -15,6 +17,7 @@ const TABLES = {
   menu:     "Menu",
   branding: "Website Branding",
   customerVideos: "Customer Videos",
+  websiteImages: "Website Images",
 };
 
 /* ---------- helpers ---------- */
@@ -28,6 +31,19 @@ function money(n){
   return "$" + (Number.isInteger(+n) ? (+n).toString() : (+n).toFixed(2));
 }
 
+function airtableImageSource(record, attachmentField = "Image", urlField = "Image URL"){
+  const attachment = Array.isArray(record?.[attachmentField]) && record[attachmentField][0]?.url
+    ? record[attachmentField][0].url
+    : "";
+  const remote = /^https?:\/\//i.test(record?.[urlField] || "") ? record[urlField] : "";
+  return attachment || remote;
+}
+
+function cssImageValue(url){
+  const safeURL = String(url || "").replace(/["'()\\]/g, "");
+  return safeURL ? `url("${safeURL}")` : "";
+}
+
 function campaignHref(value, fallback = "index.html"){
   const href = String(value || "").trim();
   if (/^https:\/\//i.test(href)) return href;
@@ -37,40 +53,27 @@ function campaignHref(value, fallback = "index.html"){
 }
 
 async function fetchTable(name){
-  if (!AIRTABLE_TOKEN) return null;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
   try{
-    let records = [], offset = "";
-    do{
-      const url = "https://api.airtable.com/v0/" + AIRTABLE_BASE + "/" +
-        encodeURIComponent(name) +
-        "?filterByFormula=" + encodeURIComponent("{Show on Site}=TRUE()") +
-        (offset ? "&offset=" + offset : "");
-      const res = await fetch(url, { headers: { Authorization: "Bearer " + AIRTABLE_TOKEN }});
-      if (!res.ok) throw new Error("Airtable " + res.status);
-      const data = await res.json();
-      records = records.concat(data.records || []);
-      offset = data.offset || "";
-    } while (offset);
-    return records.map(r => r.fields);
+    const url = AIRTABLE_API_ENDPOINT + "?table=" + encodeURIComponent(name);
+    const res = await fetch(url, {
+      headers: { Accept: "application/json" },
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error("Content service " + res.status);
+    const data = await res.json();
+    return (data.records || []).map(r => r.fields || r);
   }catch(err){
     console.warn("Airtable fetch failed for " + name + " — using built-in content.", err);
     return null;
+  }finally{
+    clearTimeout(timeout);
   }
 }
 
 async function fetchBranding(){
-  if (!AIRTABLE_TOKEN) return null;
-  try{
-    const url = "https://api.airtable.com/v0/" + AIRTABLE_BASE + "/" +
-      encodeURIComponent(TABLES.branding) + "?maxRecords=20";
-    const res = await fetch(url, { headers: { Authorization: "Bearer " + AIRTABLE_TOKEN }});
-    if (!res.ok) throw new Error("Airtable " + res.status);
-    const data = await res.json();
-    return (data.records || []).map(r => r.fields);
-  }catch(err){
-    console.warn("Airtable branding fetch failed — using the built-in logo.", err);
-    return null;
-  }
+  return fetchTable(TABLES.branding);
 }
 
 async function applyBrandLogo(){
@@ -88,6 +91,53 @@ async function applyBrandLogo(){
 
   image.src = source;
   image.alt = selected["Alt Text"] || selected["Logo Name"] || "Swensen's";
+}
+
+async function applyWebsiteImages(){
+  const rows = await fetchTable(TABLES.websiteImages);
+  if (!rows?.length) return;
+
+  const bySlot = new Map(rows.map(row => [row["Image Slot"], row]));
+
+  document.querySelectorAll("[data-airtable-image]").forEach(image => {
+    const row = bySlot.get(image.dataset.airtableImage);
+    const source = airtableImageSource(row);
+    if (!source) return;
+    image.src = source;
+    if (row["Alt Text"]) image.alt = row["Alt Text"];
+  });
+
+  document.querySelectorAll("[data-airtable-bg]").forEach(element => {
+    const row = bySlot.get(element.dataset.airtableBg);
+    const source = airtableImageSource(row);
+    if (!source) return;
+    element.style.setProperty("--airtable-bg-image", cssImageValue(source));
+    if (row["Alt Text"] && element.getAttribute("role") === "img"){
+      element.setAttribute("aria-label", row["Alt Text"]);
+    }
+  });
+
+  const imageVariables = {
+    "Global · Famous Flavor Frame": "--airtable-famous-frame",
+    "Flavors · Autumn Seasonal Frame": "--airtable-autumn-frame",
+    "Flavors · Autumn Backdrop Desktop": "--airtable-autumn-backdrop-desktop",
+    "Flavors · Autumn Backdrop Mobile": "--airtable-autumn-backdrop-mobile",
+  };
+  Object.entries(imageVariables).forEach(([slot, variable]) => {
+    const source = airtableImageSource(bySlot.get(slot));
+    if (source) document.documentElement.style.setProperty(variable, cssImageValue(source));
+  });
+
+  const animatedSign = airtableImageSource(bySlot.get("Home · Animated Sign Intro"));
+  const staticSign = airtableImageSource(bySlot.get("Home · Static Sign Intro"));
+  const sign = document.querySelector(".brand-logo-animation");
+  if (sign){
+    if (animatedSign) sign.dataset.animationSrc = animatedSign;
+    if (staticSign){
+      sign.dataset.staticSrc = staticSign;
+      sign.src = staticSign;
+    }
+  }
 }
 
 /* ---------- allergen badge icons (injected once) ---------- */
@@ -147,13 +197,20 @@ function coneSVG(color){
   </svg>`;
 }
 
+const FLAVOR_PHOTO_FALLBACKS = Object.freeze({
+  "Sticky Chewy Chocolate": "assets/flavor-sticky-chewy-chocolate-v1.webp",
+  "Fresh Strawberry": "assets/flavor-fresh-strawberry-v1.webp",
+  "Swiss Orange Chip": "assets/flavor-swiss-orange-chip-v1.webp",
+  "Old-Fashioned Vanilla": "assets/flavor-old-fashioned-vanilla-v1.webp"
+});
+
 function photoOrCone(f){
   const ph = f["Photo"];
   const attachment = Array.isArray(ph) && ph[0] && ph[0].url ? ph[0].url : "";
   const remote = /^https?:\/\//.test(f["Photo URL"] || "") ? f["Photo URL"] : "";
-  const source = attachment || remote;
+  const source = attachment || remote || FLAVOR_PHOTO_FALLBACKS[f["Flavor Name"]] || "";
   if (source){
-    return `<img class="card-photo" src="${esc(source)}" alt="${esc(f["Flavor Name"] || f["Item Name"] || "")}">`;
+    return `<img class="card-photo" src="${esc(source)}" alt="${esc(f["Flavor Name"] || f["Item Name"] || "")}" loading="lazy" decoding="async">`;
   }
   return coneSVG(f["Scoop Color"]);
 }
@@ -163,6 +220,26 @@ function flavorCard(f, options = {}){
   const extraClass = options.extraClass ? " " + options.extraClass : "";
   const filterAttrs = allergenMode === "details" ? " " + allergenDataAttributes(f) : "";
   const allergenContent = allergenMode === "details" ? allergenDetailsHTML(f) : badgesHTML(f);
+  if (options.portraitMode){
+    return `<div class="card${extraClass}"${filterAttrs}>
+      <div class="popular-portrait">${photoOrCone(f)}</div>
+      <div class="popular-card-copy">
+        <h3>${esc(f["Flavor Name"])}</h3>
+        <p>${esc(f["Description"] || "")}</p>
+        ${allergenContent}
+      </div>
+    </div>`;
+  }
+  if (options.ovalMode){
+    return `<div class="card${extraClass}"${filterAttrs}>
+      <div class="regular-portrait">${photoOrCone(f)}</div>
+      <div class="regular-card-copy">
+        <h3>${esc(f["Flavor Name"])}</h3>
+        <p>${esc(f["Description"] || "")}</p>
+        ${allergenContent}
+      </div>
+    </div>`;
+  }
   return `<div class="card${extraClass}"${filterAttrs}>
     ${photoOrCone(f)}
     <h3>${esc(f["Flavor Name"])}</h3>
@@ -172,46 +249,51 @@ function flavorCard(f, options = {}){
 }
 
 /* ---------- SLIDESHOW ---------- */
+function promotionSlidesHTML(records){
+  return records.map(r => {
+    const attachedImage = airtableImageSource(r);
+    const isFall = /pumpkin|black licorice|fall flavor/i.test(`${r["Promo Label"] || ""} ${r["Caption"] || ""}`);
+    const image = attachedImage || (isFall ? "assets/swensens-autumn-landscape.png" : "");
+    if (!image) return "";
+    // A phone-specific attachment is optional. Replacing the desktop image
+    // without one must NOT leave the old fall artwork showing on phones.
+    const mobileImage = airtableImageSource(r, "Mobile Image", "Mobile Image URL") ||
+      (!attachedImage && isFall ? "assets/swensens-autumn-portrait.png" : "");
+    const title = r["Caption"] || "Discover Swensen’s";
+    const label = r["Promo Label"] || "From the parlor";
+    const action = r["Button Label"] || "Explore";
+    const alt = r["Alt Text"] || (isFall
+      ? "Swensen’s — A taste of autumn. Pumpkin + Black Licorice. Handmade at Hyde & Union. Pumpkin and black licorice ice cream in cups and a waffle cone."
+      : title);
+    return `<a class="slide promotion-slide" href="${esc(campaignHref(r["Destination"]))}" aria-label="${esc(action + ": " + title)}" data-title="${esc(title)}" data-label="${esc(label)}" data-action="${esc(action)}" tabindex="-1" aria-hidden="true" inert>
+      <picture>
+        ${mobileImage ? `<source media="(max-width: 700px)" srcset="${esc(mobileImage)}">` : ""}
+        <img src="${esc(image)}" alt="${esc(alt)}" decoding="async">
+      </picture>
+    </a>`;
+  }).filter(Boolean).join("");
+}
+
 function buildSlideshow(container, records){
+  if (!container) return;
   const slidesBox = container.querySelector(".slides");
   const dotsBox   = container.querySelector(".dots");
+  if (!slidesBox || !dotsBox) return;
   if (records && records.length){
-    const phStyles = ["ph-red","ph-tan"];
-    const campaignThemes = ["campaign-theme-red","campaign-theme-cream","campaign-theme-gold"];
-    slidesBox.innerHTML = records.map((r,i) => {
-      const airtableImage = Array.isArray(r["Image"]) && r["Image"][0] ? r["Image"][0].url : null;
-      const isFallCampaign = /pumpkin|black licorice|fall flavor/i.test(`${r["Promo Label"] || ""} ${r["Caption"] || ""}`);
-      const img = isFallCampaign ? "assets/fall-flavors-campaign.png" : airtableImage;
-      if (img){
-        const title = r["Caption"] || "Discover Swensen's";
-        const label = r["Promo Label"] || r["Image Type"] || "Featured";
-        const text = r["Supporting Text"] || "See what is happening at the original Hyde & Union parlor.";
-        const action = r["Button Label"] || "Explore";
-        const href = campaignHref(r["Destination"]);
-        return `<a class="slide campaign-slide ${campaignThemes[i % campaignThemes.length]}${i===0?" active":""}" href="${esc(href)}" aria-label="${esc(action + ": " + title)}">
-          <img src="${esc(img)}" alt="${esc(isFallCampaign ? "Pumpkin and black licorice fall ice cream cones at Swensen's" : (r["Caption"]||"Swensen's"))}">
-          <span class="campaign-wash" aria-hidden="true"></span>
-          <span class="campaign-card">
-            <span class="campaign-label">${esc(label)}</span>
-            <span class="campaign-title">${esc(title)}</span>
-            <span class="campaign-text">${esc(text)}</span>
-            <span class="campaign-cta">${esc(action)} <span aria-hidden="true">→</span></span>
-          </span>
-        </a>`;
-      }
-      return `<div class="slide ph ${phStyles[i % phStyles.length]}${i===0?" active":""}">
-        <span class="ph-icon">📷</span>
-        <h4>${esc(r["Caption"] || "Add a photo")}</h4>
-        <p>Attach an image to this row in Airtable to fill this slide.</p>
-      </div>`;
-    }).join("");
+    const markup = promotionSlidesHTML(records);
+    if (markup) slidesBox.innerHTML = markup;
   }
   const slides = Array.from(container.querySelectorAll(".slide"));
   if (!slides.length) return;
   let current = Math.max(0, slides.findIndex(s => s.classList.contains("active")));
-  if (current === -1){ current = 0; slides[0].classList.add("active"); }
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const stage = container.querySelector(".promotion-stage") || container;
+  const status = container.querySelector("[data-promotion-status]");
   let timer = null;
+  let controlsTimer = null;
+  let hovered = false;
+  let focused = false;
+  let inView = !("IntersectionObserver" in window);
   let touchStartX = 0;
   let touchStartY = 0;
   let suppressSlideClick = false;
@@ -219,57 +301,99 @@ function buildSlideshow(container, records){
   dotsBox.innerHTML = "";
   slides.forEach((slide, i) => {
     const b = document.createElement("button");
-    b.className = "dot-btn" + (i === current ? " active" : "");
+    b.className = "dot-btn";
     b.type = "button";
-    const title = slide.querySelector(".campaign-title")?.textContent?.trim();
-    b.setAttribute("aria-label", title ? "Show: " + title : "Go to slide " + (i + 1));
-    b.addEventListener("click", () => { go(i); restart(); });
+    b.setAttribute("aria-label", `Promotion ${i + 1} of ${slides.length}: ${slide.dataset.title || "Discover Swensen’s"}`);
+    b.addEventListener("click", () => { go(i, true); restart(); });
     dotsBox.appendChild(b);
   });
   const dots = Array.from(dotsBox.children);
+  dotsBox.hidden = slides.length < 2;
 
-  function go(i){
-    slides[current].classList.remove("active");
-    dots[current].classList.remove("active");
+  function wakeControls(){
+    clearTimeout(controlsTimer);
+    container.classList.add("controls-awake");
+    controlsTimer = setTimeout(() => container.classList.remove("controls-awake"), 900);
+  }
+  function go(i, announce = false){
     current = (i + slides.length) % slides.length;
-    slides[current].classList.add("active");
-    dots[current].classList.add("active");
+    slides.forEach((slide, index) => {
+      const active = index === current;
+      slide.classList.toggle("active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+      slide.tabIndex = active ? 0 : -1;
+      slide.toggleAttribute("inert", !active);
+      dots[index].classList.toggle("active", active);
+      dots[index].setAttribute("aria-current", String(active));
+    });
+    const slide = slides[current];
+    const label = container.querySelector("[data-promotion-label]");
+    const title = container.querySelector("[data-promotion-title]");
+    const action = container.querySelector("[data-promotion-action]");
+    const link = container.querySelector("[data-promotion-link]");
+    if (label) label.textContent = slide.dataset.label || "From the parlor";
+    if (title) title.textContent = slide.dataset.title || "Discover Swensen’s";
+    if (action) action.textContent = slide.dataset.action || "Explore";
+    if (link) link.setAttribute("href", slide.getAttribute("href"));
+    if (announce && status) status.textContent = `Promotion ${current + 1} of ${slides.length}: ${slide.dataset.title}`;
+    wakeControls();
   }
   function restart(){
-    if (reduced) return;
     clearInterval(timer);
-    timer = setInterval(() => go(current + 1), 4500);
+    if (slides.length < 2 || motionPreference.matches || hovered || focused || !inView || document.hidden) return;
+    timer = setInterval(() => go(current + 1), 6500);
   }
   container.querySelectorAll("[data-dir]").forEach(btn => {
-    btn.addEventListener("click", () => { go(current + Number(btn.dataset.dir)); restart(); });
+    btn.hidden = slides.length < 2;
+    btn.addEventListener("click", () => { go(current + Number(btn.dataset.dir), true); restart(); });
   });
-  container.addEventListener("mouseenter", () => clearInterval(timer));
-  container.addEventListener("mouseleave", restart);
-  container.addEventListener("focusin", () => clearInterval(timer));
-  container.addEventListener("focusout", restart);
-  container.addEventListener("touchstart", event => {
+  container.addEventListener("mouseenter", () => { hovered = true; restart(); });
+  container.addEventListener("mouseleave", () => { hovered = false; restart(); });
+  container.addEventListener("focusin", () => { focused = true; restart(); });
+  container.addEventListener("focusout", event => { focused = container.contains(event.relatedTarget); restart(); });
+  container.addEventListener("keydown", event => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    const slideWasFocused = slides.includes(document.activeElement);
+    go(current + (event.key === "ArrowRight" ? 1 : -1), true);
+    if (slideWasFocused) slides[current].focus({ preventScroll:true });
+    restart();
+  });
+  stage.addEventListener("touchstart", event => {
     const touch = event.changedTouches[0];
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
     suppressSlideClick = false;
     clearInterval(timer);
+    wakeControls();
   }, { passive:true });
-  container.addEventListener("touchend", event => {
+  stage.addEventListener("touchend", event => {
     const touch = event.changedTouches[0];
     const dx = touch.clientX - touchStartX;
     const dy = touch.clientY - touchStartY;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2){
       suppressSlideClick = true;
-      go(current + (dx < 0 ? 1 : -1));
+      go(current + (dx < 0 ? 1 : -1), true);
     }
     restart();
   }, { passive:true });
+  stage.addEventListener("touchcancel", () => { suppressSlideClick = false; restart(); }, { passive:true });
   container.addEventListener("click", event => {
-    if (suppressSlideClick && event.target.closest(".campaign-slide")){
+    if (suppressSlideClick && event.target.closest(".promotion-slide")){
       event.preventDefault();
       suppressSlideClick = false;
     }
   }, true);
+  document.addEventListener("visibilitychange", restart);
+  motionPreference.addEventListener("change", restart);
+  if ("IntersectionObserver" in window){
+    new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      if (inView) wakeControls();
+      restart();
+    }, { threshold:.2 }).observe(stage);
+  }
+  go(current);
   restart();
 }
 
@@ -287,7 +411,11 @@ async function initHome(){
     const picks = featuredNames
       .map(name => flavors.find(f => f["Flavor Name"] === name))
       .filter(Boolean);
-    if (picks.length) favBox.innerHTML = picks.map(f => flavorCard(f, { extraClass:"popular-card" })).join("");
+    if (picks.length) favBox.innerHTML = picks.map(f => flavorCard(f, {
+      extraClass:"popular-card",
+      allergenMode:"details",
+      portraitMode:true
+    })).join("");
   }
 
   await renderReviews(3);
@@ -303,16 +431,28 @@ async function renderReviews(limit){
     const source = review["Source"];
     return source && typeof source === "object" ? (source.name || "") : (source || "");
   };
+  const platformFor = review => {
+    const source = sourceName(review);
+    if (/google/i.test(source)) return "Google";
+    if (/yelp/i.test(source)) return "Yelp";
+    if (/trip/i.test(source)) return "Tripadvisor";
+    return source || "Guest Book";
+  };
   const isSample = review => /sample|replace with a real review/i.test(review["Customer Name"] || "");
   const fallbackHomeReviews = [
-    { "Customer Name":"Sample", "Source":"In Store", "Rating":5, "Featured":true, "Quote":"Worth the climb up the hill, every single time." },
-    { "Customer Name":"Sample", "Source":"Google", "Rating":5, "Quote":"The sticky chewy chocolate lives up to the hype. An SF institution that still feels like 1948 inside." },
-    { "Customer Name":"Sample", "Source":"Yelp", "Rating":5, "Quote":"We take every visitor here. Cable car ride, a cone at Swensen's, then walk down to the bay. Perfect afternoon." },
-    { "Customer Name":"Sample", "Source":"Tripadvisor", "Rating":5, "Quote":"You can taste the difference when it's made by hand in the same shop. My kids love it as much as I did growing up." }
+    { "Customer Name":"Sample · Google 1", "Source":"Google", "Rating":5, "Featured":true, "Quote":"Worth the climb up the hill, every single time." },
+    { "Customer Name":"Sample · Google 2", "Source":"Google", "Rating":5, "Quote":"You can taste the difference when it's made by hand in the same shop. My kids love it as much as I did growing up." },
+    { "Customer Name":"Sample · Google 3", "Source":"Google", "Rating":5, "Quote":"A true San Francisco classic with welcoming service and flavors you remember long after the last scoop." },
+    { "Customer Name":"Sample · Yelp 1", "Source":"Yelp", "Rating":5, "Quote":"The sticky chewy chocolate lives up to the hype. An SF institution that still feels like 1948 inside." },
+    { "Customer Name":"Sample · Yelp 2", "Source":"Yelp", "Rating":5, "Quote":"The old-fashioned parlor charm is still here, and every flavor tastes like someone took the time to make it right." },
+    { "Customer Name":"Sample · Yelp 3", "Source":"Yelp", "Rating":5, "Quote":"Friendly people, generous scoops, and the kind of neighborhood ice cream shop you want to keep coming back to." },
+    { "Customer Name":"Sample · Tripadvisor 1", "Source":"Tripadvisor", "Rating":5, "Quote":"We take every visitor here. Cable car ride, a cone at Swensen's, then walk down to the bay. Perfect afternoon." },
+    { "Customer Name":"Sample · Tripadvisor 2", "Source":"Tripadvisor", "Rating":5, "Quote":"A wonderful stop in San Francisco. The historic setting and handmade ice cream made it feel truly special." },
+    { "Customer Name":"Sample · Tripadvisor 3", "Source":"Tripadvisor", "Rating":5, "Quote":"A delicious piece of local history at Hyde and Union. It was one of the sweetest memories from our trip." }
   ];
   if (!reviews || !reviews.length){
     if (!pageIsReviews){
-      renderHomeReviewShowcase(fallbackHomeReviews, { sourceName, isSample, ratingFor:() => 5, starsFor:() => "★★★★★" });
+      renderHomeReviewShowcase(fallbackHomeReviews, { sourceName, platformFor, isSample, ratingFor:() => 5, starsFor:() => "★★★★★" });
     }
     return;
   }
@@ -327,7 +467,9 @@ async function renderReviews(limit){
   if (fq && featured){
     fq.textContent = "\u201C" + (featured["Quote"] || "") + "\u201D";
     if (fs){
-      const byline = featuredIsSample ? "Layout preview" : (featured["Customer Name"] || "A happy customer");
+      const byline = featuredIsSample
+        ? (pageIsReviews ? "Sample note" : "Layout preview")
+        : (featured["Customer Name"] || "A happy customer");
       fs.textContent = (pageIsReviews ? "" : "— ") + byline +
         (sourceName(featured) ? " · " + sourceName(featured) : "");
     }
@@ -338,7 +480,10 @@ async function renderReviews(limit){
     featuredStars.setAttribute("aria-label", ratingFor(featured) + " out of 5 stars");
   }
   const previewLabel = document.getElementById("featured-preview-label");
-  if (previewLabel) previewLabel.hidden = !featuredIsSample;
+  if (previewLabel){
+    previewLabel.hidden = !featuredIsSample;
+    previewLabel.textContent = pageIsReviews ? "Sample note" : "Layout preview";
+  }
   const featuredCard = document.getElementById("featured-review-card");
   if (featuredCard) featuredCard.classList.toggle("featured-review-card--sample", featuredIsSample);
 
@@ -349,7 +494,7 @@ async function renderReviews(limit){
     grid.innerHTML = list.map((r, index) => {
       const sample = isSample(r);
       const source = sourceName(r) || "In Store";
-      const byline = sample ? "Layout preview" : (r["Customer Name"] || "A happy customer");
+      const byline = sample ? "Sample note" : (r["Customer Name"] || "A happy customer");
       return `<article class="review${sample ? " review--sample" : ""}">
         <div class="review-topline">
           <span class="stars" aria-label="${ratingFor(r)} out of 5 stars">${starsFor(r)}</span>
@@ -363,11 +508,23 @@ async function renderReviews(limit){
     const status = document.getElementById("reviews-status");
     if (status){
       status.innerHTML = realReviews.length
-        ? `<strong>${realReviews.length} guest ${realReviews.length === 1 ? "story" : "stories"}:</strong> this page updates automatically when visible reviews change in Airtable.`
-        : `<strong>Layout preview:</strong> replace the sample rows in Airtable and this page updates automatically.`;
+        ? `<strong>${realReviews.length} guest ${realReviews.length === 1 ? "story" : "stories"}:</strong> selected for this page from notes shared with Swensen's.`
+        : `<strong>Preview notes:</strong> approved guest reviews can be added to this collection at any time.`;
     }
   }else{
-    renderHomeReviewShowcase([featured, ...rest], { sourceName, isSample, ratingFor, starsFor });
+    const homeReviewPool = [featured, ...rest].filter(Boolean);
+    ["Google", "Yelp", "Tripadvisor"].forEach(platform => {
+      fallbackHomeReviews
+        .filter(review => platformFor(review) === platform)
+        .forEach(fallback => {
+          const platformCount = homeReviewPool.filter(review => platformFor(review) === platform).length;
+          const alreadyIncluded = homeReviewPool.some(review =>
+            platformFor(review) === platform && String(review["Quote"] || "") === fallback["Quote"]
+          );
+          if (platformCount < 3 && !alreadyIncluded) homeReviewPool.push(fallback);
+        });
+    });
+    renderHomeReviewShowcase(homeReviewPool, { sourceName, platformFor, isSample, ratingFor, starsFor });
   }
 }
 
@@ -376,37 +533,44 @@ function renderHomeReviewShowcase(reviews, helpers){
   const rail = document.getElementById("reviews-grid");
   const quote = document.getElementById("featured-quote");
   const source = document.getElementById("featured-src");
-  const platform = document.getElementById("featured-platform");
+  const platformLabel = document.getElementById("featured-platform");
   const stars = document.getElementById("featured-stars");
   const counter = document.getElementById("home-review-counter");
-  if (!showcase || !rail || !quote || !source || !platform || !stars || !counter || !reviews.length) return;
+  if (!showcase || !rail || !quote || !source || !platformLabel || !stars || !counter || !reviews.length) return;
 
-  const entries = reviews.filter(Boolean).slice(0, 6);
+  const platformOrder = ["Google", "Yelp", "Tripadvisor"];
+  const platformFor = helpers.platformFor || (review => {
+    const value = helpers.sourceName(review) || "";
+    if (/google/i.test(value)) return "Google";
+    if (/yelp/i.test(value)) return "Yelp";
+    if (/trip/i.test(value)) return "Tripadvisor";
+    return value || "Guest Book";
+  });
+  const groups = Object.fromEntries(platformOrder.map(name => [name, []]));
+  reviews.filter(Boolean).forEach(review => {
+    const platform = platformFor(review);
+    if (groups[platform]) groups[platform].push(review);
+  });
+  platformOrder.forEach(platform => {
+    groups[platform] = groups[platform]
+      .map((review, order) => ({ review, order }))
+      .sort((a, b) =>
+        Number(Boolean(b.review["Featured"])) - Number(Boolean(a.review["Featured"])) ||
+        helpers.ratingFor(b.review) - helpers.ratingFor(a.review) ||
+        a.order - b.order
+      )
+      .slice(0, 3)
+      .map(item => item.review);
+  });
+
+  const availablePlatforms = platformOrder.filter(name => groups[name].length);
+  if (!availablePlatforms.length) return;
+
+  let activePlatform = availablePlatforms.includes("Google") ? "Google" : availablePlatforms[0];
+  let entries = groups[activePlatform];
   let current = 0;
-  let timer = null;
   let fitFrame = 0;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const shortQuote = text => {
-    const clean = String(text || "A sweet note from a Swensen's guest.").trim();
-    return clean.length > 82 ? clean.slice(0, 79).trimEnd() + "…" : clean;
-  };
-
-  const marquee = document.getElementById("home-review-marquee-track");
-  if (marquee){
-    const ribbonItems = entries.map(entry => {
-      const words = shortQuote(entry["Quote"]);
-      return `<span><b aria-hidden="true">${esc(helpers.starsFor(entry))}</b>${esc(words)}</span>`;
-    }).join("");
-    marquee.innerHTML = ribbonItems + ribbonItems;
-  }
-
-  const restart = () => {
-    clearInterval(timer);
-    if (!reducedMotion && entries.length > 1){
-      timer = setInterval(() => draw(current + 1), 6500);
-    }
-  };
+  let touchOrigin = null;
 
   const fitFeaturedQuote = () => {
     cancelAnimationFrame(fitFrame);
@@ -422,54 +586,87 @@ function renderHomeReviewShowcase(reviews, helpers){
   };
 
   const draw = index => {
-    current = (index + entries.length) % entries.length;
+    const next = (index + entries.length) % entries.length;
+    showcase.dataset.direction = index < current ? "previous" : "next";
+    current = next;
     const review = entries[current];
-    const reviewSource = helpers.sourceName(review) || "In Store";
-    const byline = helpers.isSample(review) ? "Layout preview" : (review["Customer Name"] || "A happy customer");
+    const byline = helpers.isSample(review)
+      ? "Preview note"
+      : (review["Customer Name"] || "A happy guest");
 
-    const quoteText = String(review["Quote"] || "");
-    quote.textContent = "\u201C" + quoteText + "\u201D";
-    fitFeaturedQuote();
+    quote.textContent = "\u201C" + String(review["Quote"] || "A sweet note from a Swensen's guest.") + "\u201D";
     source.textContent = "— " + byline;
-    platform.textContent = reviewSource;
+    platformLabel.textContent = activePlatform;
+    platformLabel.dataset.source = activePlatform.toLowerCase();
     stars.textContent = helpers.starsFor(review);
     stars.setAttribute("aria-label", helpers.ratingFor(review) + " out of 5 stars");
     counter.textContent = String(current + 1).padStart(2,"0") + " / " + String(entries.length).padStart(2,"0");
 
-    rail.innerHTML = entries.map((entry, i) => {
-      const entrySource = helpers.sourceName(entry) || "In Store";
-      return `<button class="home-review-note${i === current ? " active" : ""}" type="button" data-review-index="${i}" aria-pressed="${i === current}">
-        <b>${String(i + 1).padStart(2,"0")}</b><span>${esc(entrySource)}</span>
-      </button>`;
-    }).join("");
-
-    rail.querySelectorAll("[data-review-index]").forEach(button => {
-      button.addEventListener("click", () => {
-        draw(Number(button.dataset.reviewIndex));
-        restart();
-      });
+    rail.querySelectorAll("[data-review-platform]").forEach(button => {
+      const buttonPlatform = button.dataset.reviewPlatform;
+      const active = buttonPlatform === activePlatform;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
+      button.disabled = !groups[buttonPlatform]?.length;
     });
+
     showcase.classList.remove("is-swapping");
     void showcase.offsetWidth;
     showcase.classList.add("is-swapping");
+    fitFeaturedQuote();
   };
 
-  showcase.querySelectorAll("[data-home-review-dir]").forEach(button => {
-    button.addEventListener("click", () => {
-      draw(current + Number(button.dataset.homeReviewDir));
-      restart();
+  const selectPlatform = nextPlatform => {
+    if (!groups[nextPlatform]?.length) return;
+    activePlatform = nextPlatform;
+    entries = groups[activePlatform];
+    current = 0;
+    draw(0);
+  };
+
+  rail.querySelectorAll("[data-review-platform]").forEach(button => {
+    button.addEventListener("click", () => selectPlatform(button.dataset.reviewPlatform));
+    button.addEventListener("keydown", event => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      const platformIndex = availablePlatforms.indexOf(activePlatform);
+      const nextPlatform = availablePlatforms[(platformIndex + direction + availablePlatforms.length) % availablePlatforms.length];
+      selectPlatform(nextPlatform);
+      rail.querySelector(`[data-review-platform="${nextPlatform}"]`)?.focus();
     });
   });
-  showcase.addEventListener("mouseenter", () => clearInterval(timer));
-  showcase.addEventListener("mouseleave", restart);
-  showcase.addEventListener("focusin", () => clearInterval(timer));
-  showcase.addEventListener("focusout", event => {
-    if (!showcase.contains(event.relatedTarget)) restart();
+
+  showcase.querySelectorAll("[data-home-review-dir]").forEach(button => {
+    button.addEventListener("click", () => draw(current + Number(button.dataset.homeReviewDir)));
   });
+
+  showcase.addEventListener("touchstart", event => {
+    if (event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    touchOrigin = { x:touch.clientX, y:touch.clientY };
+    showcase.classList.add("is-touching");
+  }, { passive:true });
+  showcase.addEventListener("touchend", event => {
+    if (!touchOrigin || !event.changedTouches.length) return;
+    const touch = event.changedTouches[0];
+    const distanceX = touch.clientX - touchOrigin.x;
+    const distanceY = touch.clientY - touchOrigin.y;
+    showcase.classList.remove("is-touching");
+    touchOrigin = null;
+    if (Math.abs(distanceX) >= 48 && Math.abs(distanceX) > Math.abs(distanceY) * 1.2){
+      draw(current + (distanceX < 0 ? 1 : -1));
+    }
+  }, { passive:true });
+  showcase.addEventListener("touchcancel", () => {
+    touchOrigin = null;
+    showcase.classList.remove("is-touching");
+  }, { passive:true });
   window.addEventListener("resize", fitFeaturedQuote);
 
+  showcase.dataset.sources = availablePlatforms.join(",");
   draw(0);
-  restart();
 }
 
 function renderPlatformReviewHub(reviews, helpers){
@@ -481,7 +678,8 @@ function renderPlatformReviewHub(reviews, helpers){
 
   const platformLinks = {
     Google: "https://www.google.com/maps/place/Swensen's,+1999+Hyde+St,+San+Francisco,+CA+94109",
-    Yelp: "https://www.yelp.com/biz/swensens-ice-cream-san-francisco"
+    Yelp: "https://www.yelp.com/biz/swensens-ice-cream-san-francisco",
+    Tripadvisor: "https://www.tripadvisor.com/Restaurant_Review-g60713-d370452-Reviews-Swensen_s-San_Francisco_California.html"
   };
 
   const draw = platform => {
@@ -498,7 +696,7 @@ function renderPlatformReviewHub(reviews, helpers){
     if (matching.length){
       feed.innerHTML = matching.map(review => {
         const sample = helpers.isSample(review);
-        const byline = sample ? "Layout preview" : (review["Customer Name"] || "A happy customer");
+        const byline = sample ? "Sample note" : (review["Customer Name"] || "A happy customer");
         return `<article class="platform-review-item${sample ? " review--sample" : ""}">
           <span class="stars" aria-label="${helpers.ratingFor(review)} out of 5 stars">${helpers.starsFor(review)}</span>
           <blockquote>\u201C${esc(review["Quote"] || "")}\u201D</blockquote>
@@ -515,8 +713,8 @@ function renderPlatformReviewHub(reviews, helpers){
     }
     if (status){
       status.textContent = matching.some(review => !helpers.isSample(review))
-        ? `${matching.length} Airtable ${platform} ${matching.length === 1 ? "review" : "reviews"}`
-        : "Airtable-powered demo feed";
+        ? `${matching.length} recent ${platform} ${matching.length === 1 ? "review" : "reviews"}`
+        : `Preview notes from ${platform}`;
     }
   };
 
@@ -537,9 +735,9 @@ async function initFlavorsPage(){
   const regs     = flavors.filter(f => f["Category"] === "Regular");
 
   if (seasonalBox && seasonal.length){
-    seasonalBox.innerHTML = seasonal.map(s => `<div class="feature-card" ${allergenDataAttributes(s)}>
-      <div>${photoOrCone(s)}</div>
-      <div>
+    seasonalBox.innerHTML = seasonal.map(s => `<div class="feature-card seasonal-medallion" ${allergenDataAttributes(s)}>
+      <div class="seasonal-portrait">${photoOrCone(s)}</div>
+      <div class="seasonal-card-copy">
         ${s["Season / Note"] ? `<span class="season-tag">${esc(s["Season / Note"])}</span>` : ""}
         <h3>${esc(s["Flavor Name"])}</h3>
         <p>${esc(s["Description"] || "")}</p>
@@ -547,9 +745,17 @@ async function initFlavorsPage(){
       </div>
     </div>`).join("");
   }
-  if (favBox && favs.length) favBox.innerHTML = favs.map(f => flavorCard(f, { allergenMode:"details" })).join("");
+  if (favBox && favs.length) favBox.innerHTML = favs.map(f => flavorCard(f, {
+    extraClass:"popular-card",
+    allergenMode:"details",
+    portraitMode:true
+  })).join("");
   if (regBox && regs.length){
-    regBox.innerHTML = regs.map(f => flavorCard(f, { allergenMode:"details" })).join("") + `
+    regBox.innerHTML = regs.map(f => flavorCard(f, {
+      extraClass:"regular-card",
+      allergenMode:"details",
+      ovalMode:true
+    })).join("") + `
       <div class="card ghost">
         <span class="plus">+</span>
         <h3>Add the next flavor</h3>
@@ -591,9 +797,8 @@ async function initMenuPage(){
       <div class="mi-price">${item?.["Price"] != null ? money(item["Price"]) : "—"}</div>
     </div>`;
   }).join("");
-  const featuredPhoto = Array.isArray(featured?.["Photo"]) && featured["Photo"][0]
-    ? featured["Photo"][0].url
-    : "https://s.hdnux.com/photos/01/26/50/61/22711370/6/ratio3x2_1920.jpg";
+  const featuredPhoto = airtableImageSource(featured, "Photo", "Photo URL") ||
+    "https://s.hdnux.com/photos/01/26/50/61/22711370/6/ratio3x2_1920.jpg";
 
   let html = `<article class="walkaway-feature reveal">
     <figure class="walkaway-photo">
@@ -644,7 +849,8 @@ async function initGiftsPage(){
     "Swensen's Hoodie":"assets/swensens-real-hoodie.jpg",
   };
   gifts.sort((a,b) => (order[a["Item Name"]] ?? 99) - (order[b["Item Name"]] ?? 99));
-  const lifestyleURL = gifts.map(g => g["Lifestyle Photo URL"]).find(url => /^https?:\/\//.test(url || ""));
+  const lifestyleRecord = gifts.find(g => airtableImageSource(g, "Lifestyle Photo", "Lifestyle Photo URL"));
+  const lifestyleURL = airtableImageSource(lifestyleRecord, "Lifestyle Photo", "Lifestyle Photo URL");
   const merchHero = document.querySelector(".merch-hero");
   if (merchHero && lifestyleURL){
     const safeLifestyleURL = lifestyleURL.replace(/["'()\\]/g, "");
@@ -800,6 +1006,7 @@ function applyFlavorFilters(){
       ? `View ${visibleCount} matching flavor${visibleCount === 1 ? "" : "s"} <span aria-hidden="true">↓</span>`
       : "No matching flavors";
   }
+  window.dispatchEvent(new Event("flavor-layout-change"));
 }
 
 function initFlavorFilters(){
@@ -880,6 +1087,46 @@ function initFlavorFilters(){
   applyFlavorFilters();
 }
 
+/* Keep the edge filter attached to the flavor case instead of covering the
+   craft section and footer after the final flavor scrolls past. */
+function initFlavorFilterBoundary(){
+  const button = document.querySelector("[data-filter-drawer-open]");
+  const sections = Array.from(document.querySelectorAll("[data-flavor-section]"));
+  if (!button || !sections.length) return;
+
+  let frame = 0;
+  let previousShift = 0;
+
+  const update = () => {
+    frame = 0;
+    const lastVisibleSection = sections.filter(section => !section.hidden).at(-1) || sections.at(-1);
+    if (!lastVisibleSection) return;
+
+    const buttonRect = button.getBoundingClientRect();
+    const naturalBottom = buttonRect.bottom - previousShift;
+    const sectionBottom = lastVisibleSection.getBoundingClientRect().bottom;
+    const edgeGap = window.innerWidth <= 600 ? 16 : 22;
+    const nextShift = Math.min(0, Math.floor(sectionBottom - edgeGap - naturalBottom));
+
+    previousShift = nextShift;
+    button.style.setProperty("--flavor-filter-boundary-shift", `${nextShift}px`);
+    button.classList.toggle("is-boundary-stopped", nextShift < 0);
+  };
+
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(update);
+  };
+
+  window.addEventListener("scroll", schedule, { passive:true });
+  window.addEventListener("resize", schedule);
+  window.addEventListener("flavor-layout-change", schedule);
+  if ("ResizeObserver" in window){
+    const observer = new ResizeObserver(schedule);
+    sections.forEach(section => observer.observe(section));
+  }
+  schedule();
+}
+
 /* ---------- scroll reveals ---------- */
 let _io = null;
 function observeReveals(){
@@ -920,10 +1167,34 @@ function highlightTodayHours(){
 function enhanceFooter(){
   const footer = document.querySelector("body > footer");
   const grid = footer?.querySelector(".foot-grid");
-  if (!footer || !grid || grid.querySelector(".footer-hours")) return;
+  if (!footer || !grid) return;
 
   grid.classList.add("foot-grid-with-hours");
   const identity = grid.firstElementChild;
+  identity?.classList.add("footer-identity");
+
+  Array.from(grid.children).forEach(section => {
+    const label = section.querySelector("h4")?.textContent.trim().toLowerCase();
+    if (label === "explore") section.classList.add("footer-explore");
+    if (label === "fans") section.classList.add("footer-fans");
+    if (label === "connect") section.classList.add("footer-connect");
+  });
+
+  const socialIcons = {
+    Instagram:`<svg class="footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.1"></circle><circle class="footer-social-dot" cx="17.4" cy="6.7" r="1.1"></circle></svg>`,
+    Facebook:`<svg class="footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.1 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2H8V13h2.7v8h3.4Z"></path></svg>`,
+    Yelp:`<svg class="footer-social-icon footer-social-icon-yelp" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 2 2 .1-.1 7.5-2.4.7L7 3.7 11 2Zm4.1 8.4 5-2.9 1.6 3.9-6.1 2.1-1.5-1.9 1-1.2Zm.2 4.7 6.3 2.3-2.5 3.5-5.1-4.1.5-2.3.8.6Zm-4.3 1.3-.2 6.6-4.2-1.1 2.2-6.3 2.4-.1-.2.9Zm-3.3-3.1-4.1 5.1L1 15l5.6-3.7 1.9 1.5-.8.5Z"></path></svg>`
+  };
+  grid.querySelectorAll(".footer-connect a").forEach(link => {
+    const label = link.textContent.trim();
+    const icon = socialIcons[label];
+    if (!icon || link.classList.contains("footer-social-link")) return;
+    link.classList.add("footer-social-link");
+    link.setAttribute("aria-label", label);
+    link.setAttribute("title", label);
+    link.innerHTML = `${icon}<span class="footer-social-name">${label}</span>`;
+  });
+
   if (identity && !identity.querySelector(".footer-location")){
     identity.insertAdjacentHTML("beforeend", `<div class="footer-location">
       <a href="https://goo.gl/maps/P2N2HEAVufNcdwCVA">1999 Hyde St<br>San Francisco, CA 94109</a>
@@ -931,6 +1202,7 @@ function enhanceFooter(){
     </div>`);
   }
 
+  if (grid.querySelector(".footer-hours")) return;
   grid.insertAdjacentHTML("beforeend", `<div class="hours footer-hours">
     <h3>Business Hours</h3>
     <div class="hours-current" aria-live="polite">
@@ -1044,6 +1316,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileNavigation();
   observeReveals();
   applyBrandLogo();
+  window.swensensImagesReady = applyWebsiteImages();
   enhanceFooter();
   highlightTodayHours();
   setInterval(highlightTodayHours, 60000);
@@ -1051,6 +1324,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (page === "home")    initHome();
   if (page === "flavors"){
     initFlavorFilters();
+    initFlavorFilterBoundary();
     initFlavorsPage();
   }
   if (page === "menu")    initMenuPage();

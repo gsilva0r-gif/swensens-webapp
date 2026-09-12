@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive annotated wireframes for the complete Swensen's website.">
+  <title>Swensen's Website Wireframe</title>
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+  <div class="blueprint-app">
+    <header class="blueprint-bar">
+      <a class="blueprint-brand" href="wireframe.html" aria-label="Swensen's website wireframe home">
+        <span class="brand-mark">S</span>
+        <span><b>SWENSEN'S</b><small>WEBSITE BLUEPRINT</small></span>
+      </a>
+
+      <div class="blueprint-status" aria-label="Document status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Interactive wireframe</span>
+        <span class="status-divider" aria-hidden="true"></span>
+        <span>Structure + behavior</span>
+      </div>
+
+      <div class="blueprint-actions">
+        <a class="live-link" href="index.html" target="_blank" rel="noopener">Open current website <span aria-hidden="true">↗</span></a>
+        <button class="notes-toggle" id="notes-toggle" type="button" aria-pressed="true">
+          <span class="notes-icon" aria-hidden="true">●</span>
+          Notes on
+        </button>
+      </div>
+    </header>
+
+    <main class="blueprint-workspace">
+      <aside class="page-panel" aria-label="Wireframe pages">
+        <div class="panel-heading">
+          <span class="panel-kicker">Pages</span>
+          <strong>Website map</strong>
+        </div>
+        <nav class="page-list" id="page-list" aria-label="Choose a website page"></nav>
+
+        <div class="panel-rule"></div>
+        <div class="legend">
+          <span class="panel-kicker">Legend</span>
+          <div><i class="legend-image" aria-hidden="true"></i><span>Photo / media</span></div>
+          <div><i class="legend-content" aria-hidden="true"></i><span>Content block</span></div>
+          <div><i class="legend-action" aria-hidden="true"></i><span>Button / action</span></div>
+          <div><i class="legend-note" aria-hidden="true">1</i><span>Build note</span></div>
+        </div>
+
+        <div class="figma-handoff">
+          <span class="panel-kicker">Figma handoff</span>
+          <p>Each canvas is organized as a named frame. Numbered notes become Figma annotations after import.</p>
+        </div>
+      </aside>
+
+      <section class="canvas-panel" aria-labelledby="canvas-title">
+        <div class="canvas-toolbar">
+          <div>
+            <span class="panel-kicker">Current frame</span>
+            <h1 id="canvas-title">Homepage</h1>
+          </div>
+
+          <div class="viewport-switch" role="group" aria-label="Preview size">
+            <button type="button" data-viewport="desktop" aria-pressed="true">
+              <span class="desktop-icon" aria-hidden="true"></span>
+              Desktop
+            </button>
+            <button type="button" data-viewport="mobile" aria-pressed="false">
+              <span class="mobile-icon" aria-hidden="true"></span>
+              Mobile
+            </button>
+          </div>
+        </div>
+
+        <div class="canvas" id="canvas">
+          <div class="prototype-shell desktop" id="prototype-shell">
+            <div class="device-label">
+              <span id="device-name">Desktop frame</span>
+              <span id="device-size">1440 px</span>
+            </div>
+            <div class="device-frame">
+              <div class="browser-chrome" aria-hidden="true">
+                <span class="chrome-dots"><i></i><i></i><i></i></span>
+                <span class="chrome-address" id="chrome-address">swensensofsf.com</span>
+                <span class="chrome-menu">•••</span>
+              </div>
+              <div class="prototype-scroll" id="prototype-scroll" tabindex="0" aria-label="Scrollable website wireframe"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-help">
+          <span>Scroll inside the frame to review the full page.</span>
+          <span>Click a numbered marker to open its note.</span>
+        </div>
+      </section>
+
+      <aside class="notes-panel" aria-label="Wireframe notes">
+        <div class="notes-heading">
+          <span class="panel-kicker">Annotations</span>
+          <span class="note-count" id="note-count">0 notes</span>
+        </div>
+        <h2 id="notes-title">Homepage notes</h2>
+        <p class="notes-summary" id="notes-summary"></p>
+        <div class="notes-list" id="notes-list"></div>
+        <div class="review-checklist">
+          <span class="panel-kicker">Review checklist</span>
+          <label><input type="checkbox"> Section order approved</label>
+          <label><input type="checkbox"> Mobile behavior approved</label>
+          <label><input type="checkbox"> Content notes approved</label>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <noscript>This interactive wireframe needs JavaScript enabled.</noscript>
+  <script src="wireframe.js"></script>
+</body>
+</html>
