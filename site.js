@@ -4,10 +4,15 @@
    text, prices, photos, and reviews without touching the code.
    ============================================================ */
 
-// Airtable is read through the site's same-origin server endpoint. Keeping the
-// credential on the server means the public browser bundle and GitHub source
-// never expose it.
-const AIRTABLE_API_ENDPOINT = window.SWENSENS_AIRTABLE_API || "/api/airtable";
+// Airtable is read through the secure Sites worker. GitHub Pages uses that
+// worker cross-origin; the Sites deployment keeps using its same-origin route.
+// The Airtable credential always stays server-side.
+const AIRTABLE_LIVE_ORIGIN = "https://swensens-website-proposal.gsilva0r-sf.chatgpt.site";
+const AIRTABLE_API_ENDPOINT = window.SWENSENS_AIRTABLE_API || (
+  window.location.hostname === "gsilva0r-gif.github.io"
+    ? AIRTABLE_LIVE_ORIGIN + "/api/airtable"
+    : "/api/airtable"
+);
 
 const TABLES = {
   flavors:  "Flavors",
@@ -56,9 +61,10 @@ async function fetchTable(name){
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
   try{
-    const url = AIRTABLE_API_ENDPOINT + "?table=" + encodeURIComponent(name);
+    const url = AIRTABLE_API_ENDPOINT + "?table=" + encodeURIComponent(name) + "&fresh=" + Date.now();
     const res = await fetch(url, {
       headers: { Accept: "application/json" },
+      cache: "no-store",
       signal: controller.signal,
     });
     if (!res.ok) throw new Error("Content service " + res.status);

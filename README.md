@@ -16,9 +16,9 @@ An uploaded Airtable attachment always takes priority over its URL fallback.
 
 ## Secure Airtable connection
 
-The browser calls `/api/airtable`; the API credential is read only by `worker/index.js` from the `AIRTABLE_TOKEN` runtime secret. Never place an Airtable token in `site.js`, HTML, or any committed file.
+The browser calls the Sites-hosted `/api/airtable` endpoint; the API credential is read only by `worker/index.js` from the `AIRTABLE_TOKEN` runtime secret. Never place an Airtable token in `site.js`, HTML, or any committed file.
 
-GitHub Pages can display the built-in fallback content, but live Airtable updates require a server-capable deployment with `AIRTABLE_TOKEN` configured.
+The Sites deployment calls that endpoint on the same origin. GitHub Pages calls the same secure endpoint cross-origin, with access limited to the repository's Pages origin. Responses are not cached, so a refresh loads the latest rows marked `Show on Site`.
 
 ## Local preview
 
