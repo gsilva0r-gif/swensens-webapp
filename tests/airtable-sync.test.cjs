@@ -31,6 +31,13 @@ test('GitHub Pages uses the live Sites endpoint while Sites stays same-origin', 
   assert.match(siteSource, /cache: "no-store"/);
 });
 
+test('every public page requests the current live-sync script version', () => {
+  for (const page of ['index.html', 'about.html', 'contact.html', 'flavors.html', 'gifts.html', 'menu.html', 'reviews.html']) {
+    const html = fs.readFileSync(path.join(root, page), 'utf8');
+    assert.match(html, /<script src="site\.js\?v=58"><\/script>/, `${page} must load the fresh site script`);
+  }
+});
+
 test('worker returns fresh Airtable data to the exact GitHub Pages origin', async t => {
   const originalFetch = global.fetch;
   let upstreamRequest;
