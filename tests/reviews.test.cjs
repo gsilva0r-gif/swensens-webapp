@@ -26,8 +26,19 @@ test('Reviews page follows the Swensens love-note scrapbook flow', () => {
   assert.match(html, /data-review-platform="Yelp"/);
   assert.match(html, /data-review-platform="Tripadvisor"/);
   assert.match(html, /class="lovebook-platform-shell"/);
-  assert.match(html, /reviews-kid-drawing-sundae-v2\.webp/);
-  assert.match(html, /reviews-kid-drawing-corner-v2\.webp/);
+  assert.match(html, /data-airtable-image="Reviews · Hero Team"/);
+  assert.match(html, /data-airtable-image="Reviews · Best of the Bay Area Team"/);
+});
+
+test('Every Reviews Polaroid is square and uses a real photograph', () => {
+  assert.match(css, /\.lovebook-float\{[\s\S]*?aspect-ratio:1\/1/);
+  assert.match(css, /\.keepsake:not\(\.keepsake-small-note\)\{[\s\S]*?aspect-ratio:1\/1/);
+  assert.doesNotMatch(html, /reviews-happy-(?:inside|outside)\.png/);
+  assert.doesNotMatch(html, /reviews-kid-drawing-(?:sundae|corner)-v2\.webp/);
+  assert.match(html, /assets\/reviews-polaroid-team\.jpeg/);
+  assert.match(html, /assets\/reviews-polaroid-friends\.jpeg/);
+  assert.match(html, /assets\/storefront-evening-original\.png/);
+  assert.match(html, /assets\/best-of-bay-area-team\.png/);
 });
 
 test('Reviews imagery remains editable', () => {
