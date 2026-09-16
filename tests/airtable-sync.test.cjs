@@ -38,6 +38,17 @@ test('every public page requests the current live-sync script version', () => {
   }
 });
 
+test('menu fallback includes the junior scoop before the single scoop', () => {
+  const html = fs.readFileSync(path.join(root, 'menu.html'), 'utf8');
+  const junior = html.indexOf('<h3>Junior Scoop</h3>');
+  const single = html.indexOf('<h3>Single Scoop</h3>');
+
+  assert.notEqual(junior, -1);
+  assert.notEqual(single, -1);
+  assert.ok(junior < single);
+  assert.match(html, /Junior Scoop<\/h3><p>A 3 oz\. scoop of any flavor in a cup or sugar cone\.<\/p>[^]*?<div class="mi-price">\$5<\/div>/);
+});
+
 test('worker returns fresh Airtable data to the exact GitHub Pages origin', async t => {
   const originalFetch = global.fetch;
   let upstreamRequest;
