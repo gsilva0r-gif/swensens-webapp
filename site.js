@@ -44,6 +44,29 @@ function airtableImageSource(record, attachmentField = "Image", urlField = "Imag
   return attachment || remote;
 }
 
+const LEGACY_WEBSITE_IMAGE_DEFAULTS = Object.freeze({
+  "Flavors · Craft Photo": Object.freeze({
+    attachmentId: "atte1FChjRQrz0D2g",
+    url: "https://swensensofsf.com/wp-content/uploads/IMG_20250824_195044-scaled.jpg"
+  })
+});
+
+function websiteImageSourceForDisplay(record, slot){
+  const legacy = LEGACY_WEBSITE_IMAGE_DEFAULTS[slot];
+  if (!legacy) return airtableImageSource(record);
+
+  const attachment = Array.isArray(record?.["Image"]) ? record["Image"][0] : null;
+  const remote = /^https?:\/\//i.test(record?.["Image URL"] || "") ? record["Image URL"] : "";
+  const attachmentIsLegacy = !attachment || attachment.id === legacy.attachmentId;
+  const remoteIsLegacy = !remote || remote === legacy.url;
+
+  // Leave the approved local photo in place while Airtable still contains the
+  // previous default. A new attachment or URL immediately becomes authoritative.
+  if (attachmentIsLegacy && remoteIsLegacy) return "";
+  if (attachment?.id === legacy.attachmentId && remote && !remoteIsLegacy) return remote;
+  return airtableImageSource(record);
+}
+
 function cssImageValue(url){
   const safeURL = String(url || "").replace(/["'()\\]/g, "");
   return safeURL ? `url("${safeURL}")` : "";
@@ -106,8 +129,9 @@ async function applyWebsiteImages(){
   const bySlot = new Map(rows.map(row => [row["Image Slot"], row]));
 
   document.querySelectorAll("[data-airtable-image]").forEach(image => {
-    const row = bySlot.get(image.dataset.airtableImage);
-    const source = airtableImageSource(row);
+    const slot = image.dataset.airtableImage;
+    const row = bySlot.get(slot);
+    const source = websiteImageSourceForDisplay(row, slot);
     if (!source) return;
     image.src = source;
     if (row["Alt Text"]) image.alt = row["Alt Text"];
@@ -203,18 +227,59 @@ function coneSVG(color){
   </svg>`;
 }
 
-const FLAVOR_PHOTO_FALLBACKS = Object.freeze({
-  "Sticky Chewy Chocolate": "assets/flavor-sticky-chewy-chocolate-v1.webp",
-  "Fresh Strawberry": "assets/flavor-fresh-strawberry-v1.webp",
-  "Swiss Orange Chip": "assets/flavor-swiss-orange-chip-v1.webp",
-  "Old-Fashioned Vanilla": "assets/flavor-old-fashioned-vanilla-v1.webp"
+const FLAVOR_PHOTO_DEFAULTS = Object.freeze({
+  "Sticky Chewy Chocolate": "assets/approval-flavors/sticky-chewy-chocolate.webp",
+  "Fresh Strawberry": "assets/approval-flavors/strawberry.webp",
+  "Sticky Peanut Butter": "assets/approval-flavors/sticky-peanut-butter.webp",
+  "Black Licorice": "assets/approval-flavors/black-licorice.webp",
+  "Cookie Dough": "assets/approval-flavors/cookie-dough.webp",
+  "Cookies 'N Cream": "assets/approval-flavors/cookies-and-cream.webp",
+  "Swiss Orange Chip": "assets/approval-flavors/swiss-orange-chip.webp",
+  "Old-Fashioned Vanilla": "assets/approval-flavors/vanilla.webp",
+  "Pumpkin": "assets/approval-flavors/pumpkin.webp"
 });
+
+const LEGACY_FLAVOR_PHOTOS = Object.freeze({
+  "Sticky Chewy Chocolate": Object.freeze({ url:"https://swensens-website-proposal.gsilva0r-sf.chatgpt.site/assets/flavor-sticky-chewy-chocolate-v1.webp" }),
+  "Fresh Strawberry": Object.freeze({ url:"https://swensens-website-proposal.gsilva0r-sf.chatgpt.site/assets/flavor-fresh-strawberry-v1.webp" }),
+  "Sticky Peanut Butter": Object.freeze({ url:"https://img.wongnai.com/p/400x0/2019/04/20/a00bb1e7dbef438583f4ef3e85590a73.jpg" }),
+  "Cookie Dough": Object.freeze({ url:"https://swensens-website-proposal.gsilva0r-sf.chatgpt.site/assets/cookie-dough-flavor.png" }),
+  "Cookies 'N Cream": Object.freeze({
+    attachmentId:"attY82BPu5jaGjexC",
+    url:"https://pbs.twimg.com/media/ECqPC-XWsAMyXNh.jpg"
+  }),
+  "Swiss Orange Chip": Object.freeze({ url:"https://swensens-website-proposal.gsilva0r-sf.chatgpt.site/assets/flavor-swiss-orange-chip-v1.webp" }),
+  "Old-Fashioned Vanilla": Object.freeze({ url:"https://swensens-website-proposal.gsilva0r-sf.chatgpt.site/assets/flavor-old-fashioned-vanilla-v1.webp" })
+});
+
+const FLAVOR_COPY_UPGRADES = Object.freeze({
+  "Swiss Orange Chip": Object.freeze({
+    from: "Bright orange cream studded with dark chocolate chips. A parlor original you won't find anywhere else.",
+    to: "Chocolate ice cream brightened with orange extract and finished with dark chocolate chips. A Swensen's original."
+  })
+});
+
+function flavorForDisplay(flavor){
+  const upgrade = FLAVOR_COPY_UPGRADES[flavor["Flavor Name"]];
+  return upgrade && flavor["Description"] === upgrade.from
+    ? {...flavor, Description:upgrade.to}
+    : flavor;
+}
 
 function photoOrCone(f){
   const ph = f["Photo"];
-  const attachment = Array.isArray(ph) && ph[0] && ph[0].url ? ph[0].url : "";
+  const attachment = Array.isArray(ph) && ph[0] && ph[0].url ? ph[0] : null;
   const remote = /^https?:\/\//.test(f["Photo URL"] || "") ? f["Photo URL"] : "";
-  const source = attachment || remote || FLAVOR_PHOTO_FALLBACKS[f["Flavor Name"]] || "";
+  const name = f["Flavor Name"];
+  const localDefault = FLAVOR_PHOTO_DEFAULTS[name] || "";
+  const legacy = LEGACY_FLAVOR_PHOTOS[name];
+  const attachmentIsLegacy = Boolean(attachment && legacy?.attachmentId === attachment.id);
+  const remoteIsLegacy = Boolean(remote && legacy?.url === remote);
+  const source = attachmentIsLegacy && remote && !remoteIsLegacy
+    ? remote
+    : (attachmentIsLegacy || (!attachment && remoteIsLegacy)
+      ? localDefault
+      : (attachment?.url || remote || localDefault));
   if (source){
     return `<img class="card-photo" src="${esc(source)}" alt="${esc(f["Flavor Name"] || f["Item Name"] || "")}" loading="lazy" decoding="async">`;
   }
@@ -731,14 +796,15 @@ function renderPlatformReviewHub(reviews, helpers){
 async function initFlavorsPage(){
   const flavors = await fetchTable(TABLES.flavors);
   if (!flavors || !flavors.length) return;
+  const displayFlavors = flavors.map(flavorForDisplay);
 
   const seasonalBox = document.getElementById("flavors-seasonal");
   const favBox = document.getElementById("flavors-favorites");
   const regBox = document.getElementById("flavors-regular");
 
-  const seasonal = flavors.filter(f => f["Category"] === "Seasonal");
-  const favs     = flavors.filter(f => f["Category"] === "Favorite");
-  const regs     = flavors.filter(f => f["Category"] === "Regular");
+  const seasonal = displayFlavors.filter(f => f["Category"] === "Seasonal");
+  const favs     = displayFlavors.filter(f => f["Category"] === "Favorite");
+  const regs     = displayFlavors.filter(f => f["Category"] === "Regular");
 
   if (seasonalBox && seasonal.length){
     seasonalBox.innerHTML = seasonal.map(s => `<div class="feature-card seasonal-medallion" ${allergenDataAttributes(s)}>
